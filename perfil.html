@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FemJob | Mi perfil</title>
+  <title>FemJob | Mi Perfil</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <header class="topbar">
   <div class="nav">
-    <a class="brand" href="index.html">
+    <a class="brand" href="index.html" aria-label="FemJob - Ir a inicio">
       <div class="logo" aria-hidden="true"></div>
       <span>FemJob</span>
     </a>
@@ -26,70 +26,102 @@
 </header>
 
 <main class="container">
+
+  <section class="card">
+    <div class="badge">Perfil de usuaria (demo) • Datos alimentan recomendaciones</div>
+    <h1>Mi Perfil</h1>
+    <p>
+      En una versión final, tu perfil define el “match” con vacantes y ajusta las recomendaciones.
+      En este MVP, los cambios son demostrativos.
+    </p>
+  </section>
+
   <div class="grid">
+
+    <!-- Panel lateral -->
     <aside class="card">
-      <h2 style="margin:0 0 10px; font-size:18px;">Datos principales</h2>
+      <h2 style="margin-bottom:10px;">Datos principales</h2>
 
       <div class="field">
         <label>Nombre</label>
         <input value="Carla Díaz" />
       </div>
+
       <div class="field">
         <label>Email</label>
         <input value="carla.diaz@email.com" />
       </div>
+
+      <div class="field">
+        <label>Nivel de experiencia</label>
+        <select>
+          <option>Junior (0–2 años)</option>
+          <option>Semi-senior (2–5 años)</option>
+          <option>Senior (5+ años)</option>
+        </select>
+      </div>
+
       <div class="field">
         <label>Área de interés</label>
         <select>
           <option>Marketing</option>
-          <option>RR.HH.</option>
           <option>TI / Datos</option>
+          <option>RR.HH.</option>
+          <option>Administración</option>
         </select>
       </div>
-      <button class="btn primary" type="button" onclick="alert('Cambios guardados (demo).')">
-        Guardar cambios
-      </button>
 
-      <p style="margin-top:12px; color:var(--muted); font-size:12px; line-height:1.4;">
-        En versión final, esta información alimenta el motor de recomendación para priorizar vacantes.
+      <div class="field">
+        <label>Modalidad preferida</label>
+        <select>
+          <option>Híbrido</option>
+          <option>Remoto</option>
+          <option>Presencial</option>
+        </select>
+      </div>
+
+      <button class="btn primary" type="button" onclick="alert('Cambios guardados (demo).')">Guardar cambios</button>
+
+      <p style="margin-top:12px; font-size:12px;">
+        *En la versión real, esta información se guardaría en base de datos.
       </p>
     </aside>
 
+    <!-- Contenido principal -->
     <section class="card">
-      <h1 style="margin:0 0 6px;">Mi Perfil</h1>
-      <p style="margin:0 0 14px; color:var(--muted);">
-        Gestión de CV, historial y recomendaciones.
-      </p>
+      <h2 style="margin-bottom:10px;">Documentos y progreso</h2>
 
       <div class="split">
-        <div class="card">
-          <h2 style="margin:0 0 10px; font-size:16px;">Currículum</h2>
-          <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
-            <div>
-              <div style="font-weight:800;">CV_Carla_Diaz.pdf</div>
-              <div style="color:var(--muted); font-size:12px;">Última actualización: 18/12/2025</div>
-            </div>
+        <div class="card" style="background:#f8fafc; border-style:dashed;">
+          <h3 style="margin:0 0 8px;">Currículum</h3>
+          <p style="margin:0 0 10px;">Archivo actual: <b>CV_Carla_Diaz.pdf</b></p>
+          <div class="meta">Última actualización: 18/12/2025</div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
             <button class="btn" type="button" onclick="alert('Subida simulada.')">Cargar nuevo</button>
+            <button class="btn secondary" type="button" onclick="alert('Descarga simulada.')">Descargar</button>
           </div>
         </div>
 
-        <div class="card">
-          <h2 style="margin:0 0 10px; font-size:16px;">Preferencias</h2>
+        <div class="card" style="background:#f8fafc; border-style:dashed;">
+          <h3 style="margin:0 0 8px;">Preferencias (resumen)</h3>
           <div class="tags">
-            <span class="tag">Híbrido</span>
             <span class="tag">Santiago</span>
+            <span class="tag">Híbrido</span>
             <span class="tag">Junior/Semi</span>
           </div>
-          <div style="margin-top:10px;">
+          <p style="margin:10px 0 0;">
+            Ajusta preferencias para mejorar el “match”.
+          </p>
+          <div style="margin-top:12px;">
             <button class="btn secondary" type="button" onclick="location.href='recomendaciones.html'">
-              Ajustar y ver recomendaciones
+              Ver recomendaciones
             </button>
           </div>
         </div>
       </div>
 
       <div class="card" style="margin-top:12px;">
-        <h2 style="margin:0 0 10px; font-size:16px;">Mis postulaciones (demo)</h2>
+        <h2 style="margin:0 0 10px; font-size:18px;">Mis postulaciones (demo)</h2>
 
         <div class="list">
           <div class="job">
@@ -103,10 +135,30 @@
           <div class="job">
             <div>
               <h3>Coordinadora RR.HH.</h3>
-              <div class="meta">Empresa Z • Estado: Postulación enviada</div>
+              <div class="meta">Empresa Z • Estado: Enviada</div>
             </div>
             <span class="pill">Enviada</span>
           </div>
+
+          <div class="job">
+            <div>
+              <h3>Asistente Administrativa</h3>
+              <div class="meta">Empresa A • Estado: Guardada</div>
+            </div>
+            <span class="pill">Guardada</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px; background:#f8fafc; border-style:dashed;">
+        <h2 style="margin:0 0 10px; font-size:18px;">Sugerencia de mejora</h2>
+        <p style="margin:0;">
+          Para aumentar compatibilidad, considera completar tu experiencia y habilidades.
+          Luego revisa <b>Capacitación</b> para fortalecer empleabilidad.
+        </p>
+        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn" type="button" onclick="location.href='capacitacion.html'">Ir a Capacitación</button>
+          <button class="btn secondary" type="button" onclick="location.href='recomendaciones.html'">Ver recomendaciones</button>
         </div>
       </div>
 
