@@ -10,7 +10,7 @@
 
 <header class="topbar">
   <div class="nav">
-    <a class="brand" href="index.html">
+    <a class="brand" href="index.html" aria-label="FemJob - Ir a inicio">
       <div class="logo" aria-hidden="true"></div>
       <span>FemJob</span>
     </a>
@@ -26,17 +26,47 @@
 </header>
 
 <main class="container">
+
+  <section class="card">
+    <div class="badge">Motor de recomendación (demo) • Interacción tipo “swipe” adaptada a web</div>
+    <h1>Recomendaciones para ti</h1>
+    <p>
+      En una versión final, estas tarjetas se generan desde tu perfil y preferencias.
+      En este MVP, el contenido es demostrativo (sin backend).
+    </p>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="n">92%</div>
+        <div class="t">Compatibilidad promedio</div>
+      </div>
+      <div class="kpi">
+        <div class="n">3</div>
+        <div class="t">Vacantes sugeridas (demo)</div>
+      </div>
+      <div class="kpi">
+        <div class="n">1 clic</div>
+        <div class="t">Acciones: aceptar/descartar</div>
+      </div>
+    </div>
+  </section>
+
   <div class="grid">
+
+    <!-- Panel lateral -->
     <aside class="card">
-      <h2 style="margin:0 0 10px; font-size:18px;">Preferencias (demo)</h2>
+      <h2 style="margin-bottom:10px;">Ajustes rápidos (demo)</h2>
+
       <div class="field">
-        <label>Rango salarial</label>
+        <label>Área</label>
         <select>
-          <option>$900.000 – $1.300.000</option>
-          <option>$1.300.000 – $1.800.000</option>
-          <option>$1.800.000+</option>
+          <option>Marketing</option>
+          <option>TI / Datos</option>
+          <option>RR.HH.</option>
+          <option>Administración</option>
         </select>
       </div>
+
       <div class="field">
         <label>Modalidad</label>
         <select>
@@ -45,33 +75,49 @@
           <option>Presencial</option>
         </select>
       </div>
+
       <div class="field">
-        <label>Área</label>
+        <label>Rango salarial</label>
         <select>
-          <option>Marketing</option>
-          <option>RR.HH.</option>
-          <option>TI / Datos</option>
-          <option>Administración</option>
+          <option>$900.000 – $1.300.000</option>
+          <option>$1.300.000 – $1.800.000</option>
+          <option>$1.800.000+</option>
         </select>
       </div>
-      <p style="color:var(--muted); font-size:12px; line-height:1.4;">
-        En versión final, estas preferencias alimentan el motor de recomendación (IA) y
-        priorizan ofertas coherentes con tu perfil.
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn secondary" type="button" onclick="alert('Demo: filtros aplicados (simulado).')">Aplicar</button>
+        <button class="btn" type="button" onclick="location.href='perfil.html'">Editar perfil</button>
+      </div>
+
+      <hr>
+
+      <h2 style="margin-bottom:10px;">Acciones (concepto)</h2>
+      <p style="margin-bottom:10px;">
+        Estas acciones representan la interacción tipo “swipe”, pero en formato web:
+        botones claros y trazables.
+      </p>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn ok" type="button" onclick="alert('Guardada (demo).')">Guardar</button>
+        <button class="btn bad" type="button" onclick="alert('Descartada (demo).')">Descartar</button>
+      </div>
+
+      <p style="margin-top:12px; font-size:12px;">
+        *En una versión real, estas acciones alimentan el aprendizaje del recomendador.
       </p>
     </aside>
 
+    <!-- Tarjetas principales -->
     <section class="card">
-      <h1 style="margin:0 0 6px;">Recomendaciones para ti</h1>
-      <p style="margin:0 0 14px; color:var(--muted);">
-        Interacción tipo “swipe” adaptada a web: aceptar / descartar con botones.
-      </p>
+      <h2 style="margin-bottom:10px;">Tarjeta recomendada</h2>
 
       <div class="card" style="background:#f8fafc; border-style:dashed;">
         <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
           <div>
             <h2 style="margin:0 0 6px; font-size:20px;">Investigadora de Mercado</h2>
-            <div class="meta">Empresa A • Santiago • Híbrido</div>
-            <div class="tags" style="margin-top:10px;">
+            <div class="meta">Empresa A • Santiago • Híbrido • Publicada hace 2 días</div>
+            <div class="tags">
               <span class="tag">Excel</span>
               <span class="tag">Investigación</span>
               <span class="tag">Presentaciones</span>
@@ -79,14 +125,15 @@
           </div>
           <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px;">
             <span class="pill">92% compatibilidad</span>
-            <span class="tag">Publicada hace 2 días</span>
+            <span class="tag">MVP</span>
           </div>
         </div>
 
-        <hr style="border:none; border-top:1px solid var(--border); margin:14px 0;">
+        <hr>
 
-        <p style="margin:0 0 12px; color:var(--muted); line-height:1.5;">
-          Funciones del MVP: ver descripción, guardar, postular (simulado), reportar vacante.
+        <p style="margin:0 0 12px;">
+          <b>Resumen:</b> apoyo en levantamiento de datos, análisis de tendencias y reportes para clientes internos.
+          Jornada completa. Experiencia 0–2 años.
         </p>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -97,10 +144,22 @@
         </div>
       </div>
 
-      <div style="margin-top:12px; color:var(--muted); font-size:12px;">
-        *En un desarrollo real, aquí se cargan ofertas desde base de datos y se recalcula compatibilidad.
+      <div class="split" style="margin-top:12px;">
+        <div class="card" style="padding:14px;">
+          <h3 style="margin:0 0 6px;">Siguiente recomendación</h3>
+          <p style="margin:0;">Analista de Marketing • Empresa X • 88% match</p>
+        </div>
+        <div class="card" style="padding:14px;">
+          <h3 style="margin:0 0 6px;">Siguiente recomendación</h3>
+          <p style="margin:0;">Coordinadora RR.HH. • Empresa Z • 81% match</p>
+        </div>
       </div>
+
+      <p style="margin-top:12px; font-size:12px;">
+        *En el MVP no hay persistencia de datos. Esta página ilustra el flujo y la interfaz.
+      </p>
     </section>
+
   </div>
 
   <div class="footer">FemJob • Recomendaciones (demo)</div>
