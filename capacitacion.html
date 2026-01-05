@@ -10,7 +10,7 @@
 
 <header class="topbar">
   <div class="nav">
-    <a class="brand" href="index.html">
+    <a class="brand" href="index.html" aria-label="FemJob - Ir a inicio">
       <div class="logo" aria-hidden="true"></div>
       <span>FemJob</span>
     </a>
@@ -26,75 +26,105 @@
 </header>
 
 <main class="container">
+
   <section class="card">
-    <h1 style="margin:0 0 6px;">Capacitación y empleabilidad</h1>
-    <p style="margin:0 0 14px; color:var(--muted); line-height:1.5;">
+    <div class="badge">Módulo de empleabilidad (demo) • Vinculación institucional</div>
+    <h1>Capacitación y empleabilidad</h1>
+    <p>
+      Este módulo representa recursos formativos para fortalecer habilidades y aumentar empleabilidad.
       En el modelo de negocio se contempla la posibilidad de vinculación con organismos públicos
-      (por ejemplo, SENCE) para apoyar programas de capacitación y reinserción laboral.
-      Esta página es una demostración del módulo.
+      (por ejemplo, SENCE) para difusión y apoyo a programas.
     </p>
-
-    <div class="split">
-      <div class="card">
-        <h2 style="margin:0 0 10px; font-size:16px;">Cursos sugeridos (demo)</h2>
-        <div class="list">
-          <div class="job">
-            <div>
-              <h3>Excel para análisis y reportes</h3>
-              <div class="meta">8 horas • Online</div>
-              <div class="tags">
-                <span class="tag">Excel</span><span class="tag">Productividad</span>
-              </div>
-            </div>
-            <button class="btn primary" type="button" onclick="alert('Inscripción simulada.')">Ver curso</button>
-          </div>
-
-          <div class="job">
-            <div>
-              <h3>Habilidades para entrevista</h3>
-              <div class="meta">6 horas • Online</div>
-              <div class="tags">
-                <span class="tag">Empleabilidad</span><span class="tag">Comunicación</span>
-              </div>
-            </div>
-            <button class="btn primary" type="button" onclick="alert('Inscripción simulada.')">Ver curso</button>
-          </div>
-
-          <div class="job">
-            <div>
-              <h3>Introducción a datos (nivel inicial)</h3>
-              <div class="meta">10 horas • Online</div>
-              <div class="tags">
-                <span class="tag">Datos</span><span class="tag">Inicio</span>
-              </div>
-            </div>
-            <button class="btn primary" type="button" onclick="alert('Inscripción simulada.')">Ver curso</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2 style="margin:0 0 10px; font-size:16px;">Convenio institucional (demo)</h2>
-        <p style="margin:0; color:var(--muted); line-height:1.5;">
-          Esta sección representa la integración con un actor institucional para:
-        </p>
-        <ul style="margin:10px 0 0; color:var(--muted); line-height:1.6;">
-          <li>Difusión de programas de capacitación.</li>
-          <li>Intermediación laboral y derivación a vacantes.</li>
-          <li>Reportes agregados (sin datos sensibles) para seguimiento de empleabilidad.</li>
-        </ul>
-
-        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn" type="button" onclick="alert('Contacto institucional (demo).')">Contactar</button>
-          <button class="btn secondary" type="button" onclick="alert('Información del convenio (demo).')">Ver condiciones</button>
-        </div>
-
-        <p style="margin-top:12px; color:var(--muted); font-size:12px;">
-          *Contenido referencial: no representa información oficial.
-        </p>
-      </div>
-    </div>
   </section>
+
+  <div class="hero" style="margin-top:16px;">
+
+    <!-- Cursos -->
+    <section class="card">
+      <h2 style="margin-bottom:10px;">Cursos sugeridos (demo)</h2>
+
+      <div class="list">
+        <div class="job">
+          <div>
+            <h3>Excel para análisis y reportes</h3>
+            <div class="meta">8 horas • Online • Nivel inicial</div>
+            <div class="tags">
+              <span class="tag">Excel</span>
+              <span class="tag">Productividad</span>
+            </div>
+          </div>
+          <button class="btn primary" type="button" onclick="alert('Inscripción simulada.')">Ver</button>
+        </div>
+
+        <div class="job">
+          <div>
+            <h3>Habilidades para entrevista</h3>
+            <div class="meta">6 horas • Online • Empleabilidad</div>
+            <div class="tags">
+              <span class="tag">Comunicación</span>
+              <span class="tag">Entrevistas</span>
+            </div>
+          </div>
+          <button class="btn primary" type="button" onclick="alert('Inscripción simulada.')">Ver</button>
+        </div>
+
+        <div class="job">
+          <div>
+            <h3>Introducción a datos (nivel inicial)</h3>
+            <div class="meta">10 horas • Online • Fundamentos</div>
+            <div class="tags">
+              <span class="tag">Datos</span>
+              <span class="tag">Inicio</span>
+            </div>
+          </div>
+          <button class="btn primary" type="button" onclick="alert('Inscripción simulada.')">Ver</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px; background:#f8fafc; border-style:dashed;">
+        <h3 style="margin:0 0 8px;">Recomendación automática (concepto)</h3>
+        <p style="margin:0;">
+          Si tu perfil muestra baja compatibilidad con vacantes, el sistema puede sugerir cursos
+          específicos para reducir brechas de habilidades.
+        </p>
+      </div>
+    </section>
+
+    <!-- Convenio institucional -->
+    <aside class="card">
+      <h2 style="margin-bottom:10px;">Convenio institucional (demo)</h2>
+      <p>
+        Este bloque ilustra la integración con un actor institucional para apoyar objetivos de empleabilidad:
+      </p>
+
+      <ul style="margin:10px 0 0; color:var(--muted); line-height:1.65;">
+        <li>Difusión de programas de capacitación.</li>
+        <li>Intermediación laboral y derivación a vacantes.</li>
+        <li>Reportes agregados (sin datos sensibles) para seguimiento de impacto.</li>
+      </ul>
+
+      <hr>
+
+      <h2 style="margin-bottom:10px;">Acciones</h2>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn secondary" type="button" onclick="alert('Contacto institucional (demo).')">Contactar</button>
+        <button class="btn" type="button" onclick="alert('Condiciones del convenio (demo).')">Ver condiciones</button>
+      </div>
+
+      <p style="margin-top:12px; font-size:12px;">
+        *Contenido referencial. No representa información oficial.
+      </p>
+
+      <div class="card" style="margin-top:12px; background:#f8fafc; border-style:dashed;">
+        <h3 style="margin:0 0 8px;">Para la presentación</h3>
+        <p style="margin:0;">
+          Este módulo ayuda a justificar la propuesta al Estado (SENCE) como canal de impacto y posible
+          mecanismo de financiamiento.
+        </p>
+      </div>
+    </aside>
+
+  </div>
 
   <div class="footer">FemJob • Capacitación (demo)</div>
 </main>
