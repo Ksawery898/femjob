@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FemJob | Página principal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav">
+    <a class="brand" href="index.html">
+      <div class="logo" aria-hidden="true"></div>
+      <span>FemJob</span>
+    </a>
+
+    <nav class="navlinks" aria-label="Navegación principal">
+      <a class="active" href="index.html">Inicio</a>
+      <a href="recomendaciones.html">Recomendaciones</a>
+      <a href="perfil.html">Mi Perfil</a>
+      <a href="capacitacion.html">Capacitación</a>
+      <a href="empresa.html">Empresas</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <div class="card">
+      <div class="badge">Plataforma web (MVP) • Enfoque de género</div>
+      <h1>Centraliza tu búsqueda laboral en un solo lugar</h1>
+      <p>
+        FemJob organiza vacantes y recomienda oportunidades según tu perfil, reduciendo
+        el tiempo perdido en portales repetidos y mejorando el “match” con empleos acordes.
+      </p>
+
+      <div class="split">
+        <div class="field">
+          <label for="q">Buscar</label>
+          <input id="q" type="text" placeholder="Ej: Analista de datos, Marketing, Recursos Humanos" />
+        </div>
+        <div class="field">
+          <label for="ubic">Ubicación</label>
+          <select id="ubic">
+            <option>Región Metropolitana</option>
+            <option>Valparaíso</option>
+            <option>Biobío</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="field">
+          <label for="area">Área</label>
+          <select id="area">
+            <option>Selecciona un área</option>
+            <option>Marketing</option>
+            <option>TI / Datos</option>
+            <option>RR.HH.</option>
+            <option>Administración</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="modalidad">Modalidad</label>
+          <select id="modalidad">
+            <option>Híbrido</option>
+            <option>Remoto</option>
+            <option>Presencial</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn primary" type="button" onclick="location.href='recomendaciones.html'">
+          Ver recomendaciones
+        </button>
+        <button class="btn secondary" type="button" onclick="alert('Demo: en el MVP las postulaciones son simuladas.')">
+          Postular (demo)
+        </button>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi">
+          <div class="n">+1.000</div>
+          <div class="t">Vacantes indexadas (demo)</div>
+        </div>
+        <div class="kpi">
+          <div class="n">3 min</div>
+          <div class="t">Tiempo promedio por sesión</div>
+        </div>
+        <div class="kpi">
+          <div class="n">IA</div>
+          <div class="t">Recomendación personalizada</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="card">
+      <h2 style="margin:0 0 10px; font-size:18px;">Ofertas destacadas</h2>
+      <div class="list">
+        <div class="job">
+          <div>
+            <h3>Analista de Marketing</h3>
+            <div class="meta">Empresa X • Santiago • Híbrido</div>
+            <div class="tags">
+              <span class="tag">Junior</span>
+              <span class="tag">Excel</span>
+              <span class="tag">CRM</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+            <span class="pill">88% match</span>
+            <button class="btn primary" type="button" onclick="alert('Demo: postulación simulada.')">Postular</button>
+          </div>
+        </div>
+
+        <div class="job">
+          <div>
+            <h3>Coordinadora RR.HH.</h3>
+            <div class="meta">Empresa Z • Santiago • Presencial</div>
+            <div class="tags">
+              <span class="tag">Semi-senior</span>
+              <span class="tag">Entrevistas</span>
+              <span class="tag">Selección</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+            <span class="pill">81% match</span>
+            <button class="btn primary" type="button" onclick="alert('Demo: postulación simulada.')">Postular</button>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin:12px 0 0; color:var(--muted); font-size:12px;">
+        *Este sitio es un prototipo académico (MVP) para Taller de Diseño en Ingeniería.
+      </p>
+    </aside>
+  </section>
+
+  <div class="footer">FemJob • Prototipo web académico</div>
+</main>
+
+</body>
+</html>

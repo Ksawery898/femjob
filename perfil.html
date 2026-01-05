@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FemJob | Mi perfil</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav">
+    <a class="brand" href="index.html">
+      <div class="logo" aria-hidden="true"></div>
+      <span>FemJob</span>
+    </a>
+
+    <nav class="navlinks" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="recomendaciones.html">Recomendaciones</a>
+      <a class="active" href="perfil.html">Mi Perfil</a>
+      <a href="capacitacion.html">Capacitación</a>
+      <a href="empresa.html">Empresas</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="grid">
+    <aside class="card">
+      <h2 style="margin:0 0 10px; font-size:18px;">Datos principales</h2>
+
+      <div class="field">
+        <label>Nombre</label>
+        <input value="Carla Díaz" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input value="carla.diaz@email.com" />
+      </div>
+      <div class="field">
+        <label>Área de interés</label>
+        <select>
+          <option>Marketing</option>
+          <option>RR.HH.</option>
+          <option>TI / Datos</option>
+        </select>
+      </div>
+      <button class="btn primary" type="button" onclick="alert('Cambios guardados (demo).')">
+        Guardar cambios
+      </button>
+
+      <p style="margin-top:12px; color:var(--muted); font-size:12px; line-height:1.4;">
+        En versión final, esta información alimenta el motor de recomendación para priorizar vacantes.
+      </p>
+    </aside>
+
+    <section class="card">
+      <h1 style="margin:0 0 6px;">Mi Perfil</h1>
+      <p style="margin:0 0 14px; color:var(--muted);">
+        Gestión de CV, historial y recomendaciones.
+      </p>
+
+      <div class="split">
+        <div class="card">
+          <h2 style="margin:0 0 10px; font-size:16px;">Currículum</h2>
+          <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+            <div>
+              <div style="font-weight:800;">CV_Carla_Diaz.pdf</div>
+              <div style="color:var(--muted); font-size:12px;">Última actualización: 18/12/2025</div>
+            </div>
+            <button class="btn" type="button" onclick="alert('Subida simulada.')">Cargar nuevo</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 style="margin:0 0 10px; font-size:16px;">Preferencias</h2>
+          <div class="tags">
+            <span class="tag">Híbrido</span>
+            <span class="tag">Santiago</span>
+            <span class="tag">Junior/Semi</span>
+          </div>
+          <div style="margin-top:10px;">
+            <button class="btn secondary" type="button" onclick="location.href='recomendaciones.html'">
+              Ajustar y ver recomendaciones
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h2 style="margin:0 0 10px; font-size:16px;">Mis postulaciones (demo)</h2>
+
+        <div class="list">
+          <div class="job">
+            <div>
+              <h3>Analista de Marketing</h3>
+              <div class="meta">Empresa X • Estado: En revisión</div>
+            </div>
+            <span class="pill">En proceso</span>
+          </div>
+
+          <div class="job">
+            <div>
+              <h3>Coordinadora RR.HH.</h3>
+              <div class="meta">Empresa Z • Estado: Postulación enviada</div>
+            </div>
+            <span class="pill">Enviada</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <div class="footer">FemJob • Perfil (demo)</div>
+</main>
+
+</body>
+</html>

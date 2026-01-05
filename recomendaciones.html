@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FemJob | Recomendaciones</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav">
+    <a class="brand" href="index.html">
+      <div class="logo" aria-hidden="true"></div>
+      <span>FemJob</span>
+    </a>
+
+    <nav class="navlinks" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a class="active" href="recomendaciones.html">Recomendaciones</a>
+      <a href="perfil.html">Mi Perfil</a>
+      <a href="capacitacion.html">Capacitación</a>
+      <a href="empresa.html">Empresas</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="grid">
+    <aside class="card">
+      <h2 style="margin:0 0 10px; font-size:18px;">Preferencias (demo)</h2>
+      <div class="field">
+        <label>Rango salarial</label>
+        <select>
+          <option>$900.000 – $1.300.000</option>
+          <option>$1.300.000 – $1.800.000</option>
+          <option>$1.800.000+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Modalidad</label>
+        <select>
+          <option>Híbrido</option>
+          <option>Remoto</option>
+          <option>Presencial</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Área</label>
+        <select>
+          <option>Marketing</option>
+          <option>RR.HH.</option>
+          <option>TI / Datos</option>
+          <option>Administración</option>
+        </select>
+      </div>
+      <p style="color:var(--muted); font-size:12px; line-height:1.4;">
+        En versión final, estas preferencias alimentan el motor de recomendación (IA) y
+        priorizan ofertas coherentes con tu perfil.
+      </p>
+    </aside>
+
+    <section class="card">
+      <h1 style="margin:0 0 6px;">Recomendaciones para ti</h1>
+      <p style="margin:0 0 14px; color:var(--muted);">
+        Interacción tipo “swipe” adaptada a web: aceptar / descartar con botones.
+      </p>
+
+      <div class="card" style="background:#f8fafc; border-style:dashed;">
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div>
+            <h2 style="margin:0 0 6px; font-size:20px;">Investigadora de Mercado</h2>
+            <div class="meta">Empresa A • Santiago • Híbrido</div>
+            <div class="tags" style="margin-top:10px;">
+              <span class="tag">Excel</span>
+              <span class="tag">Investigación</span>
+              <span class="tag">Presentaciones</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px;">
+            <span class="pill">92% compatibilidad</span>
+            <span class="tag">Publicada hace 2 días</span>
+          </div>
+        </div>
+
+        <hr style="border:none; border-top:1px solid var(--border); margin:14px 0;">
+
+        <p style="margin:0 0 12px; color:var(--muted); line-height:1.5;">
+          Funciones del MVP: ver descripción, guardar, postular (simulado), reportar vacante.
+        </p>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn bad" type="button" onclick="alert('Descartada (demo).')">Descartar</button>
+          <button class="btn ok" type="button" onclick="alert('Guardada (demo).')">Guardar</button>
+          <button class="btn primary" type="button" onclick="alert('Postulación simulada.')">Postular</button>
+          <button class="btn" type="button" onclick="alert('Reporte enviado (demo).')">Reportar</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; color:var(--muted); font-size:12px;">
+        *En un desarrollo real, aquí se cargan ofertas desde base de datos y se recalcula compatibilidad.
+      </div>
+    </section>
+  </div>
+
+  <div class="footer">FemJob • Recomendaciones (demo)</div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FemJob | Empresas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav">
+    <a class="brand" href="index.html">
+      <div class="logo" aria-hidden="true"></div>
+      <span>FemJob</span>
+    </a>
+
+    <nav class="navlinks" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="recomendaciones.html">Recomendaciones</a>
+      <a href="perfil.html">Mi Perfil</a>
+      <a href="capacitacion.html">Capacitación</a>
+      <a class="active" href="empresa.html">Empresas</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="grid">
+    <aside class="card">
+      <h2 style="margin:0 0 10px; font-size:18px;">Empresa (demo)</h2>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="n">25</div>
+          <div class="t">Ofertas activas</div>
+        </div>
+        <div class="kpi">
+          <div class="n">45%</div>
+          <div class="t">Tasa de contratación</div>
+        </div>
+        <div class="kpi">
+          <div class="n">4.2/5</div>
+          <div class="t">Valoración (demo)</div>
+        </div>
+      </div>
+
+      <hr style="border:none; border-top:1px solid var(--border); margin:14px 0;">
+
+      <button class="btn primary" type="button" onclick="alert('Publicación simulada.')">Publicar vacante</button>
+      <button class="btn secondary" type="button" onclick="alert('Convenio institucional (demo).')">Convenio institucional</button>
+
+      <p style="margin-top:12px; color:var(--muted); font-size:12px; line-height:1.4;">
+        En el modelo de ingresos, las empresas pueden pagar suscripción para publicar vacantes o
+        destacar anuncios.
+      </p>
+    </aside>
+
+    <section class="card">
+      <h1 style="margin:0 0 6px;">Perfil de Empresa</h1>
+      <p style="margin:0 0 14px; color:var(--muted);">
+        Panel básico para administrar ofertas y visualizar postulaciones (demo).
+      </p>
+
+      <div class="card" style="margin-bottom:12px;">
+        <h2 style="margin:0 0 10px; font-size:16px;">Nueva vacante (demo)</h2>
+        <div class="split">
+          <div class="field">
+            <label>Cargo</label>
+            <input placeholder="Ej: Analista de Datos" />
+          </div>
+          <div class="field">
+            <label>Modalidad</label>
+            <select>
+              <option>Híbrido</option>
+              <option>Remoto</option>
+              <option>Presencial</option>
+            </select>
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label>Ubicación</label>
+            <input placeholder="Ej: Santiago" />
+          </div>
+          <div class="field">
+            <label>Rango salarial</label>
+            <input placeholder="Ej: $1.200.000 - $1.500.000" />
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn primary" type="button" onclick="alert('Vacante creada (demo).')">Guardar vacante</button>
+          <button class="btn" type="button" onclick="alert('Vista previa (demo).')">Vista previa</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin:0 0 10px; font-size:16px;">Ofertas activas (demo)</h2>
+        <div class="list">
+          <div class="job">
+            <div>
+              <h3>Analista de Datos</h3>
+              <div class="meta">Santiago • Híbrido • 18 postulaciones</div>
+            </div>
+            <button class="btn" type="button" onclick="alert('Postulaciones (demo).')">Ver</button>
+          </div>
+          <div class="job">
+            <div>
+              <h3>Ingeniera de Software</h3>
+              <div class="meta">Remoto • 24 postulaciones</div>
+            </div>
+            <button class="btn" type="button" onclick="alert('Postulaciones (demo).')">Ver</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <div class="footer">FemJob • Empresas (demo)</div>
+</main>
+
+</body>
+</html>
