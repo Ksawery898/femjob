@@ -10,12 +10,12 @@
 
 <header class="topbar">
   <div class="nav">
-    <a class="brand" href="index.html" aria-label="FemJob - Ir a inicio">
-      <div class="logo" aria-hidden="true"></div>
+    <a class="brand" href="index.html">
+      <div class="logo"></div>
       <span>FemJob</span>
     </a>
 
-    <nav class="navlinks" aria-label="Navegación principal">
+    <nav class="navlinks">
       <a href="index.html">Inicio</a>
       <a class="active" href="recomendaciones.html">Recomendaciones</a>
       <a href="perfil.html">Mi Perfil</a>
@@ -31,35 +31,21 @@
 
 <main class="container">
 
+  <!-- INTRO -->
   <section class="card">
-    <div class="badge">Motor de recomendación (demo) • Interacción tipo “swipe” adaptada a web</div>
-    <h1>Recomendaciones para ti</h1>
+    <span class="badge">Motor de recomendación (demo)</span>
+    <h1>Recomendaciones personalizadas</h1>
     <p>
-      En una versión final, estas tarjetas se generan desde tu perfil y preferencias.
-      En este MVP, el contenido es demostrativo (sin backend).
+      Esta sección presenta vacantes recomendadas según tu perfil.
+      La interacción tipo <b>“swipe”</b> fue adaptada a entorno web mediante tarjetas animadas.
     </p>
-
-    <div class="kpis">
-      <div class="kpi">
-        <div class="n">92%</div>
-        <div class="t">Compatibilidad promedio</div>
-      </div>
-      <div class="kpi">
-        <div class="n">3</div>
-        <div class="t">Vacantes sugeridas (demo)</div>
-      </div>
-      <div class="kpi">
-        <div class="n">1 clic</div>
-        <div class="t">Acciones: aceptar/descartar</div>
-      </div>
-    </div>
   </section>
 
   <div class="grid">
 
-    <!-- Panel lateral -->
+    <!-- SIDEBAR FILTROS -->
     <aside class="card">
-      <h2 style="margin-bottom:10px;">Ajustes rápidos (demo)</h2>
+      <h2>Filtros rápidos</h2>
 
       <div class="field">
         <label>Área</label>
@@ -81,93 +67,123 @@
       </div>
 
       <div class="field">
-        <label>Rango salarial</label>
+        <label>Experiencia</label>
         <select>
-          <option>$900.000 – $1.300.000</option>
-          <option>$1.300.000 – $1.800.000</option>
-          <option>$1.800.000+</option>
+          <option>Junior</option>
+          <option>Semi-senior</option>
+          <option>Senior</option>
         </select>
       </div>
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn secondary" type="button" onclick="alert('Demo: filtros aplicados (simulado).')">Aplicar</button>
-        <button class="btn" type="button" onclick="location.href='perfil.html'">Editar perfil</button>
-      </div>
+      <button class="btn secondary" onclick="alert('Filtros aplicados (demo)')">
+        Aplicar filtros
+      </button>
 
       <hr>
 
-      <h2 style="margin-bottom:10px;">Acciones (concepto)</h2>
-      <p style="margin-bottom:10px;">
-        Estas acciones representan la interacción tipo “swipe”, pero en formato web:
-        botones claros y trazables.
-      </p>
-
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn ok" type="button" onclick="alert('Guardada (demo).')">Guardar</button>
-        <button class="btn bad" type="button" onclick="alert('Descartada (demo).')">Descartar</button>
-      </div>
-
-      <p style="margin-top:12px; font-size:12px;">
-        *En una versión real, estas acciones alimentan el aprendizaje del recomendador.
+      <p style="font-size:12px;">
+        *En este MVP los filtros no alteran resultados reales.
       </p>
     </aside>
 
-    <!-- Tarjetas principales -->
+    <!-- CONTENIDO PRINCIPAL -->
     <section class="card">
-      <h2 style="margin-bottom:10px;">Tarjeta recomendada</h2>
 
-      <div class="card" style="background:#f8fafc; border-style:dashed;">
-        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-          <div>
-            <h2 style="margin:0 0 6px; font-size:20px;">Investigadora de Mercado</h2>
-            <div class="meta">Empresa A • Santiago • Híbrido • Publicada hace 2 días</div>
-            <div class="tags">
-              <span class="tag">Excel</span>
-              <span class="tag">Investigación</span>
-              <span class="tag">Presentaciones</span>
-            </div>
+      <h2>Tarjetas recomendadas</h2>
+      <p style="margin-bottom:10px;">
+        Acepta o descarta vacantes deslizando virtualmente la tarjeta.
+      </p>
+
+      <!-- SWIPE STACK -->
+      <div class="swipe-wrap" id="swipeWrap">
+
+        <div class="swipe-card">
+          <h2>Investigadora de Mercado</h2>
+          <div class="meta">Empresa A • Santiago • Híbrido</div>
+          <div class="tags">
+            <span class="tag">Excel</span>
+            <span class="tag">Investigación</span>
+            <span class="tag">Reportes</span>
           </div>
-          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px;">
-            <span class="pill">92% compatibilidad</span>
-            <span class="tag">MVP</span>
-          </div>
+          <hr>
+          <p>
+            <b>Resumen:</b> análisis de tendencias, elaboración de reportes
+            y apoyo en estudios de mercado internos.
+          </p>
+          <span class="pill">92% compatibilidad</span>
         </div>
 
-        <hr>
-
-        <p style="margin:0 0 12px;">
-          <b>Resumen:</b> apoyo en levantamiento de datos, análisis de tendencias y reportes para clientes internos.
-          Jornada completa. Experiencia 0–2 años.
-        </p>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn bad" type="button" onclick="alert('Descartada (demo).')">Descartar</button>
-          <button class="btn ok" type="button" onclick="alert('Guardada (demo).')">Guardar</button>
-          <button class="btn primary" type="button" onclick="alert('Postulación simulada.')">Postular</button>
-          <button class="btn" type="button" onclick="alert('Reporte enviado (demo).')">Reportar</button>
+        <div class="swipe-card">
+          <h2>Analista de Marketing</h2>
+          <div class="meta">Empresa X • Santiago • Híbrido</div>
+          <div class="tags">
+            <span class="tag">CRM</span>
+            <span class="tag">Excel</span>
+            <span class="tag">Campañas</span>
+          </div>
+          <hr>
+          <p>
+            <b>Resumen:</b> apoyo en campañas digitales, seguimiento de métricas
+            y generación de reportes.
+          </p>
+          <span class="pill">88% compatibilidad</span>
         </div>
+
+        <div class="swipe-card">
+          <h2>Coordinadora de RR.HH.</h2>
+          <div class="meta">Empresa Z • Santiago • Presencial</div>
+          <div class="tags">
+            <span class="tag">Selección</span>
+            <span class="tag">Entrevistas</span>
+            <span class="tag">Onboarding</span>
+          </div>
+          <hr>
+          <p>
+            <b>Resumen:</b> coordinación de procesos de selección,
+            entrevistas y apoyo administrativo.
+          </p>
+          <span class="pill">81% compatibilidad</span>
+        </div>
+
       </div>
 
-      <div class="split" style="margin-top:12px;">
-        <div class="card" style="padding:14px;">
-          <h3 style="margin:0 0 6px;">Siguiente recomendación</h3>
-          <p style="margin:0;">Analista de Marketing • Empresa X • 88% match</p>
-        </div>
-        <div class="card" style="padding:14px;">
-          <h3 style="margin:0 0 6px;">Siguiente recomendación</h3>
-          <p style="margin:0;">Coordinadora RR.HH. • Empresa Z • 81% match</p>
-        </div>
+      <!-- BOTONES SWIPE -->
+      <div class="swipe-actions">
+        <button class="btn bad" onclick="swipe('left')">Descartar</button>
+        <button class="btn ok" onclick="swipe('right')">Guardar</button>
+        <button class="btn primary" onclick="alert('Postulación simulada')">
+          Postular
+        </button>
       </div>
 
       <p style="margin-top:12px; font-size:12px;">
-        *En el MVP no hay persistencia de datos. Esta página ilustra el flujo y la interfaz.
+        *Las acciones no generan cambios persistentes en este prototipo académico.
       </p>
+
     </section>
 
   </div>
 
-  <div class="footer">FemJob • Recomendaciones (demo)</div>
+  <div class="footer">
+    FemJob • Recomendaciones (demo)
+  </div>
 </main>
+
+<!-- JS SWIPE -->
+<script>
+  function swipe(direction){
+    const wrap = document.getElementById('swipeWrap');
+    const card = wrap.querySelector('.swipe-card');
+    if(!card) return;
+
+    card.classList.add(direction === 'left' ? 'is-left' : 'is-right');
+
+    setTimeout(() => {
+      card.classList.remove('is-left', 'is-right');
+      wrap.appendChild(card);
+    }, 280);
+  }
+</script>
 
 </body>
 </html>
