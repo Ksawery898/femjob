@@ -383,45 +383,55 @@ input:focus, select:focus{
   .grid > aside.card{ position: static; }
 }
 
-/* ===== Swipe stack (ajustado, sin difuminado) ===== */
+/* ===== Swipe stack (SOLIDO, sin z-index negativo) ===== */
 .swipe-wrap{
   position: relative;
   height: 420px;
   margin-top: 12px;
+  touch-action: pan-y; /* permite scroll vertical en móvil */
 }
 
+/* Tarjetas */
 .swipe-card{
   position: absolute;
   inset: 0;
   border-radius: var(--r-lg);
   border: 1px solid var(--border);
-  background: #fff;
+  background: #fff;             /* sólido */
   padding: 16px;
+  opacity: 1;                   /* sólido */
+  filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 12px 24px rgba(17, 24, 39, 0.12); /* estilo portal */
   transition: transform .25s ease, opacity .25s ease;
+
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
 }
 
-/* Segunda tarjeta */
+.swipe-card:active{ cursor: grabbing; }
+
+/* Orden correcto: top arriba, las otras debajo PERO sin irse “debajo” del contenedor */
+.swipe-card:nth-child(1){ z-index: 3; }
 .swipe-card:nth-child(2){
-  transform: translateY(10px);
-  z-index: -1;
-  border-color: var(--border-strong);
+  z-index: 2;
+  transform: translateY(10px) scale(0.995);
+  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.10);
 }
-
-/* Tercera tarjeta */
 .swipe-card:nth-child(3){
-  transform: translateY(20px);
-  z-index: -2;
-  border-color: var(--border);
+  z-index: 1;
+  transform: translateY(20px) scale(0.99);
+  box-shadow: 0 8px 16px rgba(17, 24, 39, 0.08);
 }
 
 /* Animaciones swipe */
 .swipe-card.is-left{
-  transform: translateX(-120%) rotate(-8deg);
+  transform: translateX(-120%) rotate(-6deg);
   opacity: 0;
 }
-
 .swipe-card.is-right{
-  transform: translateX(120%) rotate(8deg);
+  transform: translateX(120%) rotate(6deg);
   opacity: 0;
 }
 
@@ -429,21 +439,6 @@ input:focus, select:focus{
   display: flex;
   gap: 10px;
   margin-top: 12px;
-}
-
-/* Swipe: evitar selección de texto y mejorar gesto táctil */
-.swipe-wrap{
-  touch-action: pan-y;   /* permite scroll vertical, evita conflicto */
-}
-
-.swipe-card{
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: grab;
-}
-
-.swipe-card:active{
-  cursor: grabbing;
 }
 
 /* En móvil, que el alto no se coma la pantalla */
