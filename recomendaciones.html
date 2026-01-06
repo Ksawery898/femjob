@@ -10,12 +10,12 @@
 
 <header class="topbar">
   <div class="nav">
-    <a class="brand" href="index.html">
-      <div class="logo"></div>
+    <a class="brand" href="index.html" aria-label="FemJob - Ir a inicio">
+      <div class="logo" aria-hidden="true"></div>
       <span>FemJob</span>
     </a>
 
-    <nav class="navlinks">
+    <nav class="navlinks" aria-label="Navegación principal">
       <a href="index.html">Inicio</a>
       <a class="active" href="recomendaciones.html">Recomendaciones</a>
       <a href="perfil.html">Mi Perfil</a>
@@ -37,19 +37,34 @@
     <h1>Recomendaciones personalizadas</h1>
     <p>
       Esta sección presenta vacantes recomendadas según tu perfil.
-      La interacción tipo <b>“swipe”</b> fue adaptada a entorno web mediante tarjetas animadas.
+      El “swipe” tipo Tinder se adaptó a web: puedes <b>arrastrar</b> la tarjeta (móvil/PC) o usar botones.
     </p>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="n">3</div>
+        <div class="t">Tarjetas (demo)</div>
+      </div>
+      <div class="kpi">
+        <div class="n">±90px</div>
+        <div class="t">Umbral swipe</div>
+      </div>
+      <div class="kpi">
+        <div class="n">Web</div>
+        <div class="t">Móvil + escritorio</div>
+      </div>
+    </div>
   </section>
 
   <div class="grid">
 
-    <!-- SIDEBAR FILTROS -->
+    <!-- SIDEBAR -->
     <aside class="card">
       <h2>Filtros rápidos</h2>
 
       <div class="field">
-        <label>Área</label>
-        <select>
+        <label for="area">Área</label>
+        <select id="area">
           <option>Marketing</option>
           <option>TI / Datos</option>
           <option>RR.HH.</option>
@@ -58,8 +73,8 @@
       </div>
 
       <div class="field">
-        <label>Modalidad</label>
-        <select>
+        <label for="mod">Modalidad</label>
+        <select id="mod">
           <option>Híbrido</option>
           <option>Remoto</option>
           <option>Presencial</option>
@@ -67,38 +82,38 @@
       </div>
 
       <div class="field">
-        <label>Experiencia</label>
-        <select>
+        <label for="exp">Experiencia</label>
+        <select id="exp">
           <option>Junior</option>
           <option>Semi-senior</option>
           <option>Senior</option>
         </select>
       </div>
 
-      <button class="btn secondary" onclick="alert('Filtros aplicados (demo)')">
-        Aplicar filtros
-      </button>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn secondary" type="button" onclick="alert('Filtros aplicados (demo)')">Aplicar</button>
+        <button class="btn" type="button" onclick="location.href='perfil.html'">Editar perfil</button>
+      </div>
 
       <hr>
 
       <p style="font-size:12px;">
-        *En este MVP los filtros no alteran resultados reales.
+        *En este MVP los filtros no alteran resultados reales. Se muestran para ilustrar el flujo.
       </p>
     </aside>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- SWIPE -->
     <section class="card">
-
       <h2>Tarjetas recomendadas</h2>
       <p style="margin-bottom:10px;">
-        Acepta o descarta vacantes deslizando virtualmente la tarjeta.
+        Arrastra a la <b>derecha</b> para guardar ✅ y a la <b>izquierda</b> para descartar ❌.
       </p>
 
-      <!-- SWIPE STACK -->
-      <div class="swipe-wrap" id="swipeWrap">
+      <!-- STACK -->
+      <div class="swipe-wrap" id="swipeWrap" aria-label="Tarjetas de empleos recomendados">
 
-        <div class="swipe-card">
-          <h2>Investigadora de Mercado</h2>
+        <div class="swipe-card" data-id="1">
+          <h2 style="margin:0 0 6px;">Investigadora de Mercado</h2>
           <div class="meta">Empresa A • Santiago • Híbrido</div>
           <div class="tags">
             <span class="tag">Excel</span>
@@ -107,14 +122,13 @@
           </div>
           <hr>
           <p>
-            <b>Resumen:</b> análisis de tendencias, elaboración de reportes
-            y apoyo en estudios de mercado internos.
+            <b>Resumen:</b> análisis de tendencias, elaboración de reportes y apoyo en estudios internos.
           </p>
           <span class="pill">92% compatibilidad</span>
         </div>
 
-        <div class="swipe-card">
-          <h2>Analista de Marketing</h2>
+        <div class="swipe-card" data-id="2">
+          <h2 style="margin:0 0 6px;">Analista de Marketing</h2>
           <div class="meta">Empresa X • Santiago • Híbrido</div>
           <div class="tags">
             <span class="tag">CRM</span>
@@ -123,14 +137,13 @@
           </div>
           <hr>
           <p>
-            <b>Resumen:</b> apoyo en campañas digitales, seguimiento de métricas
-            y generación de reportes.
+            <b>Resumen:</b> apoyo en campañas, seguimiento de métricas y generación de reportes.
           </p>
           <span class="pill">88% compatibilidad</span>
         </div>
 
-        <div class="swipe-card">
-          <h2>Coordinadora de RR.HH.</h2>
+        <div class="swipe-card" data-id="3">
+          <h2 style="margin:0 0 6px;">Coordinadora de RR.HH.</h2>
           <div class="meta">Empresa Z • Santiago • Presencial</div>
           <div class="tags">
             <span class="tag">Selección</span>
@@ -139,38 +152,32 @@
           </div>
           <hr>
           <p>
-            <b>Resumen:</b> coordinación de procesos de selección,
-            entrevistas y apoyo administrativo.
+            <b>Resumen:</b> coordinación de selección, entrevistas y apoyo administrativo.
           </p>
           <span class="pill">81% compatibilidad</span>
         </div>
 
       </div>
 
-      <!-- BOTONES SWIPE -->
+      <!-- ACTIONS -->
       <div class="swipe-actions">
-        <button class="btn bad" onclick="swipe('left')">Descartar</button>
-        <button class="btn ok" onclick="swipe('right')">Guardar</button>
-        <button class="btn primary" onclick="alert('Postulación simulada')">
-          Postular
-        </button>
+        <button class="btn bad" type="button" onclick="swipe('left')">Descartar</button>
+        <button class="btn ok" type="button" onclick="swipe('right')">Guardar</button>
+        <button class="btn primary" type="button" onclick="alert('Postulación simulada')">Postular</button>
       </div>
 
       <p style="margin-top:12px; font-size:12px;">
-        *Las acciones no generan cambios persistentes en este prototipo académico.
+        *Este prototipo no persiste acciones. El swipe se usa para demostrar la interacción en web.
       </p>
-
     </section>
 
   </div>
 
-  <div class="footer">
-    FemJob • Recomendaciones (demo)
-  </div>
+  <div class="footer">FemJob • Recomendaciones (demo)</div>
 </main>
 
-<!-- JS SWIPE -->
 <script>
+  // ===== Botones: animación + rotación de tarjetas =====
   function swipe(direction){
     const wrap = document.getElementById('swipeWrap');
     const card = wrap.querySelector('.swipe-card');
@@ -180,9 +187,108 @@
 
     setTimeout(() => {
       card.classList.remove('is-left', 'is-right');
+      card.style.transform = '';
       wrap.appendChild(card);
-    }, 280);
+      attachDragToTopCard(); // activar drag en la nueva tarjeta superior
+    }, 260);
   }
+
+  // ===== Swipe real: touch + mouse =====
+  const THRESHOLD = 90; // px para decidir
+
+  function attachDragToTopCard(){
+    const wrap = document.getElementById('swipeWrap');
+    const top = wrap.querySelector('.swipe-card');
+    if(!top) return;
+
+    // evitar múltiples listeners
+    if(top.dataset.dragReady === '1') return;
+    top.dataset.dragReady = '1';
+
+    let startX = 0, startY = 0;
+    let dx = 0, dy = 0;
+    let dragging = false;
+
+    function onStart(clientX, clientY){
+      dragging = true;
+      startX = clientX;
+      startY = clientY;
+      dx = 0; dy = 0;
+      top.style.transition = 'none';
+    }
+
+    function onMove(clientX, clientY){
+      if(!dragging) return;
+      dx = clientX - startX;
+      dy = clientY - startY;
+
+      // rotación leve según desplazamiento
+      const rot = Math.max(-10, Math.min(10, dx / 12));
+      top.style.transform = `translate(${dx}px, ${dy * 0.25}px) rotate(${rot}deg)`;
+    }
+
+    function onEnd(){
+      if(!dragging) return;
+      dragging = false;
+
+      top.style.transition = 'transform .22s ease, opacity .22s ease';
+
+      if(dx > THRESHOLD){
+        // derecha = guardar
+        top.classList.add('is-right');
+        setTimeout(() => {
+          top.classList.remove('is-right');
+          top.style.transform = '';
+          wrap.appendChild(top);
+          attachDragToTopCard();
+        }, 240);
+      } else if(dx < -THRESHOLD){
+        // izquierda = descartar
+        top.classList.add('is-left');
+        setTimeout(() => {
+          top.classList.remove('is-left');
+          top.style.transform = '';
+          wrap.appendChild(top);
+          attachDragToTopCard();
+        }, 240);
+      } else {
+        // volver al centro
+        top.style.transform = '';
+      }
+    }
+
+    // Touch (móvil)
+    top.addEventListener('touchstart', (e) => {
+      const t = e.touches[0];
+      onStart(t.clientX, t.clientY);
+    }, { passive: true });
+
+    top.addEventListener('touchmove', (e) => {
+      const t = e.touches[0];
+      onMove(t.clientX, t.clientY);
+    }, { passive: true });
+
+    top.addEventListener('touchend', () => onEnd(), { passive: true });
+
+    // Mouse (PC)
+    top.addEventListener('mousedown', (e) => {
+      onStart(e.clientX, e.clientY);
+
+      const mm = (ev) => onMove(ev.clientX, ev.clientY);
+      const mu = () => {
+        document.removeEventListener('mousemove', mm);
+        document.removeEventListener('mouseup', mu);
+        onEnd();
+      };
+
+      document.addEventListener('mousemove', mm);
+      document.addEventListener('mouseup', mu);
+    });
+  }
+
+  window.addEventListener('load', () => {
+    attachDragToTopCard();
+  });
 </script>
 
 </body>
