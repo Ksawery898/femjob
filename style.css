@@ -445,3 +445,47 @@ input:focus, select:focus{
 @media (max-width: 480px){
   .swipe-wrap{ height: 460px; }
 }
+
+/* =========================
+   MOBILE FIX: NAV + WIDTH
+========================= */
+@media (max-width: 900px){
+
+  /* que el header no “corte” contenido */
+  .nav{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* permite que el menú baje de línea */
+  .navlinks{
+    width: 100%;
+    flex-wrap: wrap;           /* CLAVE */
+    row-gap: 8px;
+    column-gap: 8px;
+  }
+
+  /* links un poquito más compactos */
+  .navlinks a{
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   EXTRA: si aún queda justo en pantallas MUY pequeñas
+   (menú se puede deslizar horizontalmente)
+========================= */
+@media (max-width: 420px){
+  .navlinks{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+  }
+
+  .navlinks a{
+    white-space: nowrap;
+  }
+}
