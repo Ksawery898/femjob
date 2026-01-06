@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FemJob | Contacto</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav">
+    <a class="brand" href="index.html" aria-label="FemJob - Ir a inicio">
+      <div class="logo" aria-hidden="true"></div>
+      <span>FemJob</span>
+    </a>
+
+    <nav class="navlinks" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="recomendaciones.html">Recomendaciones</a>
+      <a href="perfil.html">Mi Perfil</a>
+      <a href="capacitacion.html">Capacitación</a>
+      <a href="empresa.html">Empresas</a>
+      <a href="sobre.html">Sobre</a>
+      <a class="active" href="contacto.html">Contacto</a>
+      <a href="faq.html">FAQ</a>
+      <a href="terminos.html">Términos</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="card">
+    <div class="badge">Soporte y retroalimentación (demo)</div>
+    <h1>Contacto</h1>
+    <p>
+      Este formulario representa el canal de soporte del MVP. En una versión real,
+      los mensajes quedarían registrados y se responderían por correo.
+    </p>
+  </section>
+
+  <div class="hero" style="margin-top:16px;">
+
+    <section class="card">
+      <h2 style="margin-bottom:10px;">Escríbenos</h2>
+
+      <div class="split">
+        <div class="field">
+          <label>Nombre</label>
+          <input placeholder="Ej: Daniela Pérez" />
+        </div>
+        <div class="field">
+          <label>Correo</label>
+          <input placeholder="Ej: daniela@mail.com" />
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="field">
+          <label>Tipo de solicitud</label>
+          <select>
+            <option>Soporte técnico</option>
+            <option>Reporte de vacante</option>
+            <option>Sugerencia / mejora</option>
+            <option>Convenio institucional</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Prioridad</label>
+          <select>
+            <option>Normal</option>
+            <option>Alta</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Mensaje</label>
+        <input placeholder="Escribe aquí tu mensaje (demo)..." />
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn primary" type="button" onclick="alert('Mensaje enviado (demo).')">Enviar</button>
+        <button class="btn" type="button" onclick="alert('Formulario limpiado (demo).')">Limpiar</button>
+      </div>
+
+      <p style="margin-top:12px; font-size:12px;">
+        *En esta demo no se envían correos ni se guardan datos.
+      </p>
+    </section>
+
+    <aside class="card">
+      <h2 style="margin-bottom:10px;">Información</h2>
+      <div class="card" style="background:#f8fafc; border-style:dashed;">
+        <h3 style="margin:0 0 8px;">Tiempo de respuesta</h3>
+        <p style="margin:0;">En versión real: 24–48 horas hábiles (dependiendo del plan).</p>
+      </div>
+
+      <div class="card" style="margin-top:12px; background:#f8fafc; border-style:dashed;">
+        <h3 style="margin:0 0 8px;">Canales</h3>
+        <p style="margin:0;">Correo, formulario web y seguimiento de tickets.</p>
+      </div>
+
+      <div class="card" style="margin-top:12px; background:#f8fafc; border-style:dashed;">
+        <h3 style="margin:0 0 8px;">Para empresas / Estado</h3>
+        <p style="margin:0;">Aquí se simula el canal para convenios institucionales y consultas B2B.</p>
+      </div>
+
+      <p style="margin-top:12px; font-size:12px;">
+        FemJob • Prototipo académico
+      </p>
+    </aside>
+
+  </div>
+
+  <div class="footer">FemJob • Contacto (demo)</div>
+</main>
+
+</body>
+</html>

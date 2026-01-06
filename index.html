@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FemJob | Plataforma web de empleo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav">
+    <a class="brand" href="index.html" aria-label="FemJob - Ir a inicio">
+      <div class="logo" aria-hidden="true"></div>
+      <span>FemJob</span>
+    </a>
+
+    <nav class="navlinks" aria-label="Navegación principal">
+      <a class="active" href="index.html">Inicio</a>
+      <a href="recomendaciones.html">Recomendaciones</a>
+      <a href="perfil.html">Mi Perfil</a>
+      <a href="capacitacion.html">Capacitación</a>
+      <a href="empresa.html">Empresas</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="faq.html">FAQ</a>
+      <a href="terminos.html">Términos</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="card">
+      <div class="badge">Prototipo web (MVP) • Enfoque de género • RM</div>
+
+      <h1>Centraliza tu búsqueda laboral en un solo lugar</h1>
+      <p>
+        FemJob organiza vacantes y recomienda oportunidades según tu perfil.
+        Menos tiempo en portales repetidos, más foco en postulaciones relevantes.
+      </p>
+
+      <!-- CTA + Beneficios -->
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin: 6px 0 12px;">
+        <button class="btn primary" type="button" onclick="location.href='recomendaciones.html'">
+          Ver recomendaciones
+        </button>
+        <button class="btn secondary" type="button" onclick="location.href='perfil.html'">
+          Completar mi perfil
+        </button>
+      </div>
+
+      <div class="split" style="margin-top: 10px;">
+        <div class="card" style="padding:14px; background: #f8fafc; border-style: dashed;">
+          <h3 style="margin:0 0 6px;">✅ Menos dispersión</h3>
+          <p style="margin:0;">
+            Reúne ofertas y evita duplicados, reduciendo búsqueda innecesaria.
+          </p>
+        </div>
+        <div class="card" style="padding:14px; background: #f8fafc; border-style: dashed;">
+          <h3 style="margin:0 0 6px;">🎯 Mejor “match”</h3>
+          <p style="margin:0;">
+            Recomendaciones personalizadas según experiencia y preferencias.
+          </p>
+        </div>
+      </div>
+
+      <!-- Buscador -->
+      <div style="margin-top:14px;">
+        <h2 style="margin:0 0 10px; font-size:18px;">Buscar vacantes (demo)</h2>
+
+        <div class="split">
+          <div class="field">
+            <label for="q">Cargo o palabra clave</label>
+            <input id="q" type="text" placeholder="Ej: Analista de datos, Marketing, RR.HH." />
+          </div>
+          <div class="field">
+            <label for="ubic">Ubicación</label>
+            <select id="ubic">
+              <option>Región Metropolitana</option>
+              <option>Valparaíso</option>
+              <option>Biobío</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="field">
+            <label for="area">Área</label>
+            <select id="area">
+              <option>Selecciona un área</option>
+              <option>Marketing</option>
+              <option>TI / Datos</option>
+              <option>RR.HH.</option>
+              <option>Administración</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="modalidad">Modalidad</label>
+            <select id="modalidad">
+              <option>Híbrido</option>
+              <option>Remoto</option>
+              <option>Presencial</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn primary" type="button" onclick="alert('Demo: en el MVP la búsqueda es simulada. Ve a Recomendaciones para ver la interacción.')">
+            Buscar
+          </button>
+          <button class="btn" type="button" onclick="location.href='recomendaciones.html'">
+            Ver tarjetas recomendadas
+          </button>
+        </div>
+
+        <p style="margin-top:10px; font-size:12px;">
+          *Este sitio es un prototipo académico (sin backend). Las acciones de postulación son simuladas.
+        </p>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpis">
+        <div class="kpi">
+          <div class="n">+1.000</div>
+          <div class="t">Vacantes indexadas (demo)</div>
+        </div>
+        <div class="kpi">
+          <div class="n">IA</div>
+          <div class="t">Recomendación personalizada</div>
+        </div>
+        <div class="kpi">
+          <div class="n">1 clic</div>
+          <div class="t">Postulación (concepto)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASIDE: Ofertas + Ruta -->
+    <aside class="card">
+      <h2 style="margin:0 0 10px; font-size:18px;">Ofertas destacadas</h2>
+
+      <div class="list">
+        <div class="job">
+          <div>
+            <h3>Analista de Marketing</h3>
+            <div class="meta">Empresa X • Santiago • Híbrido</div>
+            <div class="tags">
+              <span class="tag">Junior</span>
+              <span class="tag">Excel</span>
+              <span class="tag">CRM</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+            <span class="pill">88% match</span>
+            <button class="btn primary" type="button" onclick="alert('Demo: postulación simulada.')">Postular</button>
+          </div>
+        </div>
+
+        <div class="job">
+          <div>
+            <h3>Coordinadora RR.HH.</h3>
+            <div class="meta">Empresa Z • Santiago • Presencial</div>
+            <div class="tags">
+              <span class="tag">Semi-senior</span>
+              <span class="tag">Selección</span>
+              <span class="tag">Entrevistas</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+            <span class="pill">81% match</span>
+            <button class="btn primary" type="button" onclick="alert('Demo: postulación simulada.')">Postular</button>
+          </div>
+        </div>
+
+        <div class="job">
+          <div>
+            <h3>Asistente Administrativa</h3>
+            <div class="meta">Empresa A • Santiago • Híbrido</div>
+            <div class="tags">
+              <span class="tag">Office</span>
+              <span class="tag">Gestión</span>
+              <span class="tag">Organización</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+            <span class="pill">76% match</span>
+            <button class="btn primary" type="button" onclick="alert('Demo: postulación simulada.')">Postular</button>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2 style="margin:0 0 10px; font-size:18px;">Cómo funciona (rápido)</h2>
+
+      <div class="card" style="padding:14px; background:#f8fafc; border-style:dashed; margin-bottom:10px;">
+        <h3 style="margin:0 0 6px;">1) Completa tu perfil</h3>
+        <p style="margin:0;">Indica tu área, experiencia y preferencias.</p>
+        <div style="margin-top:10px;">
+          <button class="btn secondary" type="button" onclick="location.href='perfil.html'">Ir a Mi Perfil</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:14px; background:#f8fafc; border-style:dashed; margin-bottom:10px;">
+        <h3 style="margin:0 0 6px;">2) Revisa recomendaciones</h3>
+        <p style="margin:0;">Acepta/descarta vacantes con botones (web).</p>
+        <div style="margin-top:10px;">
+          <button class="btn secondary" type="button" onclick="location.href='recomendaciones.html'">Ver tarjetas</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:14px; background:#f8fafc; border-style:dashed;">
+        <h3 style="margin:0 0 6px;">3) Fortalece tu empleabilidad</h3>
+        <p style="margin:0;">Accede a cursos y recursos (demo, con opción institucional).</p>
+        <div style="margin-top:10px;">
+          <button class="btn secondary" type="button" onclick="location.href='capacitacion.html'">Ver capacitación</button>
+        </div>
+      </div>
+
+      <p style="margin-top:12px; font-size:12px;">
+        FemJob • Prototipo académico para Taller de Diseño en Ingeniería.
+      </p>
+    </aside>
+  </section>
+
+  <div class="footer">FemJob • Plataforma web (MVP) • Demo</div>
+</main>
+
+</body>
+</html>
