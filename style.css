@@ -430,3 +430,23 @@ input:focus, select:focus{
   gap: 10px;
   margin-top: 12px;
 }
+
+/* Swipe: evitar selección de texto y mejorar gesto táctil */
+.swipe-wrap{
+  touch-action: pan-y;   /* permite scroll vertical, evita conflicto */
+}
+
+.swipe-card{
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+
+.swipe-card:active{
+  cursor: grabbing;
+}
+
+/* En móvil, que el alto no se coma la pantalla */
+@media (max-width: 480px){
+  .swipe-wrap{ height: 460px; }
+}
