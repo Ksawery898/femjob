@@ -489,3 +489,24 @@ input:focus, select:focus{
     white-space: nowrap;
   }
 }
+
+/* =========================
+   AJUSTES FINALES SWIPE
+========================= */
+
+/* Más aire entre tarjetas y botones */
+.swipe-actions{
+  margin-top: 24px;
+}
+
+/* Separación visual del swipe */
+.swipe-wrap{
+  margin-bottom: 16px;
+}
+
+/* Extra comodidad en móvil */
+@media (max-width: 480px){
+  .swipe-actions{
+    margin-top: 32px;
+  }
+}
