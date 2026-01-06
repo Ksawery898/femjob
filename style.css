@@ -383,7 +383,7 @@ input:focus, select:focus{
   .grid > aside.card{ position: static; }
 }
 
-/* ===== Swipe stack (web) ===== */
+/* ===== Swipe stack (ajustado, sin difuminado) ===== */
 .swipe-wrap{
   position: relative;
   height: 420px;
@@ -397,31 +397,36 @@ input:focus, select:focus{
   border: 1px solid var(--border);
   background: #fff;
   padding: 16px;
-  box-shadow: 0 10px 24px rgba(17,24,39,0.10);
-  transition: transform .28s ease, opacity .28s ease;
+  transition: transform .25s ease, opacity .25s ease;
 }
 
+/* Segunda tarjeta */
 .swipe-card:nth-child(2){
-  transform: translateY(8px) scale(0.98);
-  opacity: 0.85;
-}
-.swipe-card:nth-child(3){
-  transform: translateY(16px) scale(0.96);
-  opacity: 0.70;
+  transform: translateY(10px);
+  z-index: -1;
+  border-color: var(--border-strong);
 }
 
+/* Tercera tarjeta */
+.swipe-card:nth-child(3){
+  transform: translateY(20px);
+  z-index: -2;
+  border-color: var(--border);
+}
+
+/* Animaciones swipe */
 .swipe-card.is-left{
-  transform: translateX(-120%) rotate(-10deg);
+  transform: translateX(-120%) rotate(-8deg);
   opacity: 0;
 }
+
 .swipe-card.is-right{
-  transform: translateX(120%) rotate(10deg);
+  transform: translateX(120%) rotate(8deg);
   opacity: 0;
 }
 
 .swipe-actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+  display: flex;
+  gap: 10px;
   margin-top: 12px;
 }
