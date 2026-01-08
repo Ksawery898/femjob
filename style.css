@@ -1,28 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
 
 /* =========================================================
-   FemJob – CSS portal empleo (LinkedIn-inspired)
-   Claro, corporativo, desktop-first
+   FemJob – CSS portal empleo
+   Paleta: Naranjo · Gris · Blanco
 ========================================================= */
 
 :root{
   /* Base */
-  --bg: #f3f2ef;
+  --bg: #f5f5f5;
   --card: #ffffff;
-  --card-soft: #f8fafc;
+  --card-soft: #fafafa;
 
-  --text: #111827;
+  /* Texto */
+  --text: #1f2933;
   --muted: #6b7280;
 
   /* Marca */
-  --brand: #0a66c2;
-  --brand-strong: #084c8f;
-  --brand-soft: rgba(10,102,194,0.10);
+  --brand: #f97316;
+  --brand-strong: #ea580c;
+  --brand-soft: rgba(249,115,22,0.14);
 
   /* Bordes y sombras */
   --border: #e5e7eb;
   --border-strong: #d1d5db;
-  --shadow: 0 6px 18px rgba(17,24,39,0.08);
+  --shadow: 0 6px 18px rgba(31,41,55,0.08);
 
   /* Estados */
   --ok-bg: #ecfdf5;
@@ -33,6 +34,7 @@
   --bad-border: #fecaca;
   --bad-text: #991b1b;
 
+  /* Radius */
   --r-lg: 14px;
   --r-md: 10px;
   --r-sm: 8px;
@@ -53,7 +55,7 @@ html, body{
 
 a{ text-decoration: none; color: inherit; }
 img{ max-width: 100%; display: block; }
-::selection{ background: rgba(10,102,194,0.18); }
+::selection{ background: rgba(249,115,22,0.2); }
 
 /* =========================
    CONTENEDOR
@@ -95,7 +97,7 @@ img{ max-width: 100%; display: block; }
   width: 32px;
   height: 32px;
   border-radius: var(--r-sm);
-  background: linear-gradient(135deg, var(--brand), #3b82f6);
+  background: linear-gradient(135deg, var(--brand), var(--brand-strong));
 }
 
 .navlinks{
@@ -142,7 +144,7 @@ img{ max-width: 100%; display: block; }
 }
 
 /* =========================
-   SIDEBAR (filtros)
+   SIDEBAR
 ========================= */
 .grid > aside.card{
   position: sticky;
@@ -158,6 +160,7 @@ img{ max-width: 100%; display: block; }
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   padding: 16px;
+  box-shadow: var(--shadow);
 }
 
 .card + .card{
@@ -259,6 +262,7 @@ input:focus, select:focus{
   background: var(--brand);
   color: #fff;
   border-color: transparent;
+  box-shadow: 0 6px 14px rgba(249,115,22,0.35);
 }
 
 .btn.primary:hover{
@@ -284,26 +288,12 @@ input:focus, select:focus{
 }
 
 /* =========================
-   LISTA DE OFERTAS
+   LISTAS / TAGS
 ========================= */
 .list{
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.job{
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 14px;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: #fff;
-}
-
-.job:hover{
-  border-color: var(--border-strong);
 }
 
 .tags{
@@ -321,7 +311,6 @@ input:focus, select:focus{
   color: #374151;
 }
 
-/* Match pill */
 .pill{
   font-size: 12px;
   padding: 4px 10px;
@@ -368,10 +357,55 @@ input:focus, select:focus{
 }
 
 /* =========================
-   PARCHE fondos claros inline
+   SWIPE CARDS
 ========================= */
-[style*="background:#f8fafc"]{
-  color: var(--text) !important;
+.swipe-wrap{
+  position: relative;
+  height: 420px;
+  margin-top: 12px;
+  margin-bottom: 16px;
+  touch-action: pan-y;
+}
+
+.swipe-card{
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  box-shadow: 0 12px 24px rgba(31,41,55,0.12);
+  transition: transform .25s ease, opacity .25s ease;
+  user-select: none;
+  cursor: grab;
+}
+
+.swipe-card:active{ cursor: grabbing; }
+
+.swipe-card:nth-child(1){ z-index: 3; }
+.swipe-card:nth-child(2){
+  z-index: 2;
+  transform: translateY(10px);
+}
+.swipe-card:nth-child(3){
+  z-index: 1;
+  transform: translateY(20px);
+}
+
+.swipe-card.is-left{
+  transform: translateX(-120%) rotate(-6deg);
+  opacity: 0;
+}
+
+.swipe-card.is-right{
+  transform: translateX(120%) rotate(6deg);
+  opacity: 0;
+}
+
+.swipe-actions{
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
 }
 
 /* =========================
@@ -381,132 +415,21 @@ input:focus, select:focus{
   .container{ padding: 16px; }
   .hero, .grid, .split{ grid-template-columns: 1fr; }
   .grid > aside.card{ position: static; }
-}
 
-/* ===== Swipe stack (SOLIDO, sin z-index negativo) ===== */
-.swipe-wrap{
-  position: relative;
-  height: 420px;
-  margin-top: 12px;
-  touch-action: pan-y; /* permite scroll vertical en móvil */
-}
-
-/* Tarjetas */
-.swipe-card{
-  position: absolute;
-  inset: 0;
-  border-radius: var(--r-lg);
-  border: 1px solid var(--border);
-  background: #fff;             /* sólido */
-  padding: 16px;
-  opacity: 1;                   /* sólido */
-  filter: none;
-  backdrop-filter: none;
-  box-shadow: 0 12px 24px rgba(17, 24, 39, 0.12); /* estilo portal */
-  transition: transform .25s ease, opacity .25s ease;
-
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: grab;
-}
-
-.swipe-card:active{ cursor: grabbing; }
-
-/* Orden correcto: top arriba, las otras debajo PERO sin irse “debajo” del contenedor */
-.swipe-card:nth-child(1){ z-index: 3; }
-.swipe-card:nth-child(2){
-  z-index: 2;
-  transform: translateY(10px) scale(0.995);
-  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.10);
-}
-.swipe-card:nth-child(3){
-  z-index: 1;
-  transform: translateY(20px) scale(0.99);
-  box-shadow: 0 8px 16px rgba(17, 24, 39, 0.08);
-}
-
-/* Animaciones swipe */
-.swipe-card.is-left{
-  transform: translateX(-120%) rotate(-6deg);
-  opacity: 0;
-}
-.swipe-card.is-right{
-  transform: translateX(120%) rotate(6deg);
-  opacity: 0;
-}
-
-.swipe-actions{
-  display: flex;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-/* En móvil, que el alto no se coma la pantalla */
-@media (max-width: 480px){
-  .swipe-wrap{ height: 460px; }
-}
-
-/* =========================
-   MOBILE FIX: NAV + WIDTH
-========================= */
-@media (max-width: 900px){
-
-  /* que el header no “corte” contenido */
   .nav{
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
 
-  /* permite que el menú baje de línea */
   .navlinks{
     width: 100%;
-    flex-wrap: wrap;           /* CLAVE */
-    row-gap: 8px;
-    column-gap: 8px;
-  }
-
-  /* links un poquito más compactos */
-  .navlinks a{
-    padding: 6px 10px;
-    font-size: 13px;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }
 
-/* =========================
-   EXTRA: si aún queda justo en pantallas MUY pequeñas
-   (menú se puede deslizar horizontalmente)
-========================= */
-@media (max-width: 420px){
-  .navlinks{
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 6px;
-  }
-
-  .navlinks a{
-    white-space: nowrap;
-  }
-}
-
-/* =========================
-   AJUSTES FINALES SWIPE
-========================= */
-
-/* Más aire entre tarjetas y botones */
-.swipe-actions{
-  margin-top: 24px;
-}
-
-/* Separación visual del swipe */
-.swipe-wrap{
-  margin-bottom: 16px;
-}
-
-/* Extra comodidad en móvil */
 @media (max-width: 480px){
-  .swipe-actions{
-    margin-top: 32px;
-  }
+  .swipe-wrap{ height: 400px; }
+  .swipe-actions{ margin-top: 32px; }
 }
