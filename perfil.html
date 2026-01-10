@@ -32,19 +32,20 @@
 <main class="container">
 
   <section class="card">
-    <span class="badge">Perfil de usuaria (demo)</span>
+    <span class="badge">Perfil (demo)</span>
     <h1>Mi Perfil</h1>
     <p>
-      Completa tu información para recibir recomendaciones más relevantes.
-      En este prototipo, los cambios se guardan localmente en tu navegador.
+      Define tu tipo de cuenta y preferencias para adaptar la experiencia.
+      En este prototipo, la información se guarda localmente en tu navegador.
     </p>
   </section>
 
   <div class="grid">
 
+    <!-- SIDEBAR -->
     <aside class="card">
       <h2>Acciones</h2>
-      <p class="meta">Guarda tus preferencias para ajustar recomendaciones.</p>
+      <p class="meta">Guarda tus preferencias para ajustar el contenido del sitio.</p>
 
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <button class="btn primary" type="button" onclick="saveProfile()">Guardar cambios</button>
@@ -54,105 +55,214 @@
       <hr>
 
       <div class="care-chip" id="careStatus" style="display:none;">Modo cuidadora activo</div>
+      <div class="care-chip" id="companyStatus" style="display:none;">Perfil empresa activo</div>
+
       <p style="font-size:12px; margin-top:10px;">
-        *El modo cuidadora prioriza vacantes con flexibilidad, remoto/híbrido y jornada compatible.
+        *El “Modo cuidadora” se aplica solo a Persona Natural y prioriza vacantes con flexibilidad.
       </p>
     </aside>
 
+    <!-- MAIN -->
     <section class="card">
-      <h2>Información general</h2>
+
+      <h2>Tipo de cuenta</h2>
+      <p>Selecciona cómo usarás FemJob.</p>
 
       <div class="split">
         <div class="field">
-          <label for="nombre">Nombre</label>
-          <input id="nombre" placeholder="Ej: Daniela Pérez" />
+          <label for="accountType">Cuenta</label>
+          <select id="accountType">
+            <option value="persona">Persona Natural</option>
+            <option value="empresa">Empresa</option>
+          </select>
         </div>
-        <div class="field">
-          <label for="correo">Correo</label>
-          <input id="correo" placeholder="Ej: daniela@mail.com" />
-        </div>
-      </div>
 
-      <div class="split">
-        <div class="field">
-          <label for="area">Área</label>
-          <select id="area">
-            <option>Marketing</option>
-            <option>TI / Datos</option>
-            <option>RR.HH.</option>
-            <option>Administración</option>
-            <option>Servicios</option>
+        <div class="field" id="personaTypeField">
+          <label for="personaType">Tipo de persona</label>
+          <select id="personaType">
+            <option value="candidata">Candidata (busca empleo)</option>
+            <option value="egresada">Egresada / primer empleo</option>
+            <option value="reincorporacion">Reincorporación laboral</option>
+            <option value="cambio">Cambio de trabajo</option>
           </select>
-        </div>
-        <div class="field">
-          <label for="modalidad">Modalidad preferida</label>
-          <select id="modalidad">
-            <option>Híbrido</option>
-            <option>Remoto</option>
-            <option>Presencial</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="split">
-        <div class="field">
-          <label for="experiencia">Experiencia</label>
-          <select id="experiencia">
-            <option>Junior</option>
-            <option>Semi-senior</option>
-            <option>Senior</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="comuna">Comuna / Ciudad</label>
-          <input id="comuna" placeholder="Ej: Santiago" />
         </div>
       </div>
 
       <hr>
 
-      <h2>Modo Mamá / Cuidadora</h2>
-      <p>
-        Funcionalidad opcional para priorizar ofertas laborales compatibles con responsabilidades de cuidado.
-      </p>
+      <!-- =========================
+           SECCIÓN PERSONA NATURAL
+      ========================== -->
+      <div id="personaSection">
 
-      <div class="card" style="background:#f8fafc; border-style:dashed;">
-        <div style="display:flex; gap:12px; align-items:flex-start;">
-          <input id="careMode" type="checkbox" style="margin-top:4px;" />
-          <div>
-            <h3 style="margin:0 0 6px;">Activar modo cuidadora</h3>
-            <p style="margin:0;">
-              Al activarlo, FemJob prioriza vacantes con <b>flexibilidad</b>, <b>remoto/híbrido</b> y <b>jornada compatible</b>.
-            </p>
+        <h2>Información general</h2>
+
+        <div class="split">
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" placeholder="Ej: Daniela Pérez" />
+          </div>
+          <div class="field">
+            <label for="correo">Correo</label>
+            <input id="correo" placeholder="Ej: daniela@mail.com" />
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="field">
+            <label for="area">Área</label>
+            <select id="area">
+              <option>Marketing</option>
+              <option>TI / Datos</option>
+              <option>RR.HH.</option>
+              <option>Administración</option>
+              <option>Servicios</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="modalidad">Modalidad preferida</label>
+            <select id="modalidad">
+              <option>Híbrido</option>
+              <option>Remoto</option>
+              <option>Presencial</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="field">
+            <label for="experiencia">Experiencia</label>
+            <select id="experiencia">
+              <option>Junior</option>
+              <option>Semi-senior</option>
+              <option>Senior</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="comuna">Comuna / Ciudad</label>
+            <input id="comuna" placeholder="Ej: Santiago" />
+          </div>
+        </div>
+
+        <hr>
+
+        <h2>Modo Mamá / Cuidadora</h2>
+        <p>Funcionalidad opcional para priorizar ofertas compatibles con responsabilidades de cuidado.</p>
+
+        <div class="card" style="background:#f8fafc; border-style:dashed;">
+          <div style="display:flex; gap:12px; align-items:flex-start;">
+            <input id="careMode" type="checkbox" style="margin-top:4px;" />
+            <div>
+              <h3 style="margin:0 0 6px;">Activar modo cuidadora</h3>
+              <p style="margin:0;">
+                Al activarlo, FemJob prioriza vacantes con <b>flexibilidad</b>, <b>remoto/híbrido</b> y <b>jornada compatible</b>.
+              </p>
+            </div>
+          </div>
+
+          <div class="split" style="margin-top:12px;">
+            <div class="field">
+              <label for="careHours">Horario preferido</label>
+              <select id="careHours">
+                <option value="flexible">Flexible / por turnos</option>
+                <option value="parttime">Part-time</option>
+                <option value="tradicional">Tradicional (9–18)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="careRemote">Preferencia de modalidad</label>
+              <select id="careRemote">
+                <option value="remote">Remoto prioritario</option>
+                <option value="hybrid">Híbrido prioritario</option>
+                <option value="any">Cualquiera</option>
+              </select>
+            </div>
+          </div>
+
+          <p class="hint" style="margin-top:8px;">
+            *En este prototipo, estas opciones ajustan etiquetas y el filtro “compatibles con cuidados” en Recomendaciones.
+          </p>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+          <button class="btn secondary" type="button" onclick="goRecommendations()">Ver recomendaciones</button>
+        </div>
+
+      </div>
+
+      <!-- =========================
+           SECCIÓN EMPRESA
+      ========================== -->
+      <div id="empresaSection" style="display:none;">
+
+        <h2>Perfil de empresa</h2>
+        <p>Configura información básica para publicar vacantes y revisar postulaciones (demo).</p>
+
+        <div class="split">
+          <div class="field">
+            <label for="empresaNombre">Nombre empresa</label>
+            <input id="empresaNombre" placeholder="Ej: Empresa Naranja SpA" />
+          </div>
+          <div class="field">
+            <label for="empresaRubro">Rubro</label>
+            <select id="empresaRubro">
+              <option>Servicios</option>
+              <option>Tecnología</option>
+              <option>Retail</option>
+              <option>Salud</option>
+              <option>Educación</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="field">
+            <label for="empresaEmail">Correo corporativo</label>
+            <input id="empresaEmail" placeholder="Ej: rrhh@empresa.cl" />
+          </div>
+          <div class="field">
+            <label for="empresaUbicacion">Ubicación</label>
+            <input id="empresaUbicacion" placeholder="Ej: Santiago" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="empresaDesc">Descripción breve</label>
+          <input id="empresaDesc" placeholder="Ej: Empresa enfocada en empleabilidad e innovación." />
+        </div>
+
+        <hr>
+
+        <h2>Funciones (MVP demo)</h2>
+        <div class="split">
+          <div class="card" style="background:#f8fafc;">
+            <h3 style="margin:0 0 6px;">Publicar vacante (simulado)</h3>
+            <p style="margin:0 0 10px;">Permite crear una oferta básica para mostrar el flujo B2B.</p>
+            <button class="btn primary" type="button" onclick="alert('Publicación de vacante (demo)')">Publicar</button>
+          </div>
+
+          <div class="card" style="background:#f8fafc;">
+            <h3 style="margin:0 0 6px;">Ver postulaciones (simulado)</h3>
+            <p style="margin:0 0 10px;">Lista de postulantes y estado del proceso (solo demo).</p>
+            <button class="btn secondary" type="button" onclick="alert('Postulaciones (demo)')">Ver</button>
           </div>
         </div>
 
         <div class="split" style="margin-top:12px;">
-          <div class="field">
-            <label for="careHours">Horario preferido</label>
-            <select id="careHours">
-              <option value="flexible">Flexible / por turnos</option>
-              <option value="parttime">Part-time</option>
-              <option value="tradicional">Tradicional (9–18)</option>
-            </select>
+          <div class="card" style="background:#f8fafc;">
+            <h3 style="margin:0 0 6px;">Invitar a entrevista (simulado)</h3>
+            <p style="margin:0 0 10px;">Demuestra una acción típica del flujo empresa.</p>
+            <button class="btn" type="button" onclick="alert('Invitación enviada (demo)')">Invitar</button>
           </div>
-          <div class="field">
-            <label for="careRemote">Preferencia de modalidad</label>
-            <select id="careRemote">
-              <option value="remote">Remoto prioritario</option>
-              <option value="hybrid">Híbrido prioritario</option>
-              <option value="any">Cualquiera</option>
-            </select>
+
+          <div class="card" style="background:#f8fafc;">
+            <h3 style="margin:0 0 6px;">Sello “Compatible con cuidados”</h3>
+            <p style="margin:0 0 10px;">Marcar ofertas como compatibles con cuidados (demo).</p>
+            <button class="btn ok" type="button" onclick="alert('Sello aplicado (demo)')">Aplicar sello</button>
           </div>
         </div>
 
-        <p class="hint" style="margin-top:8px;">
-          *En este prototipo, estas opciones ajustan etiquetas y el filtro de “compatibles con cuidados” en Recomendaciones.
-        </p>
-      </div>
-
-      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-        <button class="btn secondary" type="button" onclick="goRecommendations()">Ver recomendaciones</button>
       </div>
 
     </section>
@@ -163,47 +273,100 @@
 </main>
 
 <script>
-  const KEY_PROFILE = "femjob_profile_v1";
+  const KEY_PROFILE = "femjob_profile_v2";
   const KEY_CARE = "femjob_care_mode_v1";
+
+  function $(id){ return document.getElementById(id); }
+
+  function setModeUI(){
+    const type = $("accountType").value;
+
+    const persona = (type === "persona");
+    $("personaSection").style.display = persona ? "block" : "none";
+    $("empresaSection").style.display = persona ? "none" : "block";
+    $("personaTypeField").style.display = persona ? "block" : "none";
+
+    // care mode solo para persona
+    if(!persona){
+      $("careMode").checked = false;
+      localStorage.setItem(KEY_CARE, "false");
+      $("careStatus").style.display = "none";
+      $("companyStatus").style.display = "inline-flex";
+      $("companyStatus").textContent = "Perfil empresa activo";
+    }else{
+      $("companyStatus").style.display = "none";
+      const care = localStorage.getItem(KEY_CARE) === "true";
+      $("careMode").checked = care;
+      updateCareStatus(care);
+    }
+  }
+
+  function updateCareStatus(isOn){
+    const chip = $("careStatus");
+    chip.style.display = isOn ? "inline-flex" : "none";
+    chip.textContent = isOn ? "Modo cuidadora activo" : "";
+  }
 
   function loadProfile(){
     const raw = localStorage.getItem(KEY_PROFILE);
     const data = raw ? JSON.parse(raw) : {};
 
-    document.getElementById("nombre").value = data.nombre || "";
-    document.getElementById("correo").value = data.correo || "";
-    document.getElementById("area").value = data.area || "Marketing";
-    document.getElementById("modalidad").value = data.modalidad || "Híbrido";
-    document.getElementById("experiencia").value = data.experiencia || "Junior";
-    document.getElementById("comuna").value = data.comuna || "";
-    document.getElementById("careHours").value = data.careHours || "flexible";
-    document.getElementById("careRemote").value = data.careRemote || "remote";
+    // Tipo cuenta
+    $("accountType").value = data.accountType || "persona";
+    $("personaType").value = data.personaType || "candidata";
 
+    // Persona
+    $("nombre").value = data.nombre || "";
+    $("correo").value = data.correo || "";
+    $("area").value = data.area || "Marketing";
+    $("modalidad").value = data.modalidad || "Híbrido";
+    $("experiencia").value = data.experiencia || "Junior";
+    $("comuna").value = data.comuna || "";
+    $("careHours").value = data.careHours || "flexible";
+    $("careRemote").value = data.careRemote || "remote";
+
+    // Empresa
+    $("empresaNombre").value = data.empresaNombre || "";
+    $("empresaRubro").value = data.empresaRubro || "Servicios";
+    $("empresaEmail").value = data.empresaEmail || "";
+    $("empresaUbicacion").value = data.empresaUbicacion || "";
+    $("empresaDesc").value = data.empresaDesc || "";
+
+    // Care state (solo si persona)
     const care = localStorage.getItem(KEY_CARE) === "true";
-    document.getElementById("careMode").checked = care;
-    updateCareStatus(care);
-  }
+    $("careMode").checked = care;
 
-  function updateCareStatus(isOn){
-    const chip = document.getElementById("careStatus");
-    chip.style.display = isOn ? "inline-flex" : "none";
-    chip.textContent = isOn ? "Modo cuidadora activo" : "";
+    setModeUI();
   }
 
   function saveProfile(){
     const data = {
-      nombre: document.getElementById("nombre").value.trim(),
-      correo: document.getElementById("correo").value.trim(),
-      area: document.getElementById("area").value,
-      modalidad: document.getElementById("modalidad").value,
-      experiencia: document.getElementById("experiencia").value,
-      comuna: document.getElementById("comuna").value.trim(),
-      careHours: document.getElementById("careHours").value,
-      careRemote: document.getElementById("careRemote").value
+      accountType: $("accountType").value,
+      personaType: $("personaType").value,
+
+      // Persona
+      nombre: $("nombre").value.trim(),
+      correo: $("correo").value.trim(),
+      area: $("area").value,
+      modalidad: $("modalidad").value,
+      experiencia: $("experiencia").value,
+      comuna: $("comuna").value.trim(),
+      careHours: $("careHours").value,
+      careRemote: $("careRemote").value,
+
+      // Empresa
+      empresaNombre: $("empresaNombre").value.trim(),
+      empresaRubro: $("empresaRubro").value,
+      empresaEmail: $("empresaEmail").value.trim(),
+      empresaUbicacion: $("empresaUbicacion").value.trim(),
+      empresaDesc: $("empresaDesc").value.trim(),
     };
+
     localStorage.setItem(KEY_PROFILE, JSON.stringify(data));
 
-    const care = document.getElementById("careMode").checked;
+    // Care mode (solo si persona)
+    const isPersona = data.accountType === "persona";
+    const care = isPersona ? $("careMode").checked : false;
     localStorage.setItem(KEY_CARE, String(care));
     updateCareStatus(care);
 
@@ -222,7 +385,17 @@
     location.href = "recomendaciones.html";
   }
 
-  document.getElementById("careMode").addEventListener("change", (e) => {
+  // Listeners
+  $("accountType").addEventListener("change", () => {
+    setModeUI();
+  });
+
+  $("careMode").addEventListener("change", (e) => {
+    // solo aplica si persona
+    if($("accountType").value !== "persona"){
+      e.target.checked = false;
+      return;
+    }
     localStorage.setItem(KEY_CARE, String(e.target.checked));
     updateCareStatus(e.target.checked);
   });
