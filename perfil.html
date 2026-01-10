@@ -32,145 +32,203 @@
 <main class="container">
 
   <section class="card">
-    <div class="badge">Perfil de usuaria (demo) • Datos alimentan recomendaciones</div>
+    <span class="badge">Perfil de usuaria (demo)</span>
     <h1>Mi Perfil</h1>
     <p>
-      En una versión final, tu perfil define el “match” con vacantes y ajusta las recomendaciones.
-      En este MVP, los cambios son demostrativos.
+      Completa tu información para recibir recomendaciones más relevantes.
+      En este prototipo, los cambios se guardan localmente en tu navegador.
     </p>
   </section>
 
   <div class="grid">
 
-    <!-- Panel lateral -->
     <aside class="card">
-      <h2 style="margin-bottom:10px;">Datos principales</h2>
+      <h2>Acciones</h2>
+      <p class="meta">Guarda tus preferencias para ajustar recomendaciones.</p>
 
-      <div class="field">
-        <label>Nombre</label>
-        <input value="Carla Díaz" />
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn primary" type="button" onclick="saveProfile()">Guardar cambios</button>
+        <button class="btn" type="button" onclick="resetProfile()">Restablecer</button>
       </div>
 
-      <div class="field">
-        <label>Email</label>
-        <input value="carla.diaz@email.com" />
-      </div>
+      <hr>
 
-      <div class="field">
-        <label>Nivel de experiencia</label>
-        <select>
-          <option>Junior (0–2 años)</option>
-          <option>Semi-senior (2–5 años)</option>
-          <option>Senior (5+ años)</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Área de interés</label>
-        <select>
-          <option>Marketing</option>
-          <option>TI / Datos</option>
-          <option>RR.HH.</option>
-          <option>Administración</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Modalidad preferida</label>
-        <select>
-          <option>Híbrido</option>
-          <option>Remoto</option>
-          <option>Presencial</option>
-        </select>
-      </div>
-
-      <button class="btn primary" type="button" onclick="alert('Cambios guardados (demo).')">Guardar cambios</button>
-
-      <p style="margin-top:12px; font-size:12px;">
-        *En la versión real, esta información se guardaría en base de datos.
+      <div class="care-chip" id="careStatus" style="display:none;">Modo cuidadora activo</div>
+      <p style="font-size:12px; margin-top:10px;">
+        *El modo cuidadora prioriza vacantes con flexibilidad, remoto/híbrido y jornada compatible.
       </p>
     </aside>
 
-    <!-- Contenido principal -->
     <section class="card">
-      <h2 style="margin-bottom:10px;">Documentos y progreso</h2>
+      <h2>Información general</h2>
 
       <div class="split">
-        <div class="card" style="background:#f8fafc; border-style:dashed;">
-          <h3 style="margin:0 0 8px;">Currículum</h3>
-          <p style="margin:0 0 10px;">Archivo actual: <b>CV_Carla_Diaz.pdf</b></p>
-          <div class="meta">Última actualización: 18/12/2025</div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-            <button class="btn" type="button" onclick="alert('Subida simulada.')">Cargar nuevo</button>
-            <button class="btn secondary" type="button" onclick="alert('Descarga simulada.')">Descargar</button>
-          </div>
+        <div class="field">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" placeholder="Ej: Daniela Pérez" />
         </div>
-
-        <div class="card" style="background:#f8fafc; border-style:dashed;">
-          <h3 style="margin:0 0 8px;">Preferencias (resumen)</h3>
-          <div class="tags">
-            <span class="tag">Santiago</span>
-            <span class="tag">Híbrido</span>
-            <span class="tag">Junior/Semi</span>
-          </div>
-          <p style="margin:10px 0 0;">
-            Ajusta preferencias para mejorar el “match”.
-          </p>
-          <div style="margin-top:12px;">
-            <button class="btn secondary" type="button" onclick="location.href='recomendaciones.html'">
-              Ver recomendaciones
-            </button>
-          </div>
+        <div class="field">
+          <label for="correo">Correo</label>
+          <input id="correo" placeholder="Ej: daniela@mail.com" />
         </div>
       </div>
 
-      <div class="card" style="margin-top:12px;">
-        <h2 style="margin:0 0 10px; font-size:18px;">Mis postulaciones (demo)</h2>
-
-        <div class="list">
-          <div class="job">
-            <div>
-              <h3>Analista de Marketing</h3>
-              <div class="meta">Empresa X • Estado: En revisión</div>
-            </div>
-            <span class="pill">En proceso</span>
-          </div>
-
-          <div class="job">
-            <div>
-              <h3>Coordinadora RR.HH.</h3>
-              <div class="meta">Empresa Z • Estado: Enviada</div>
-            </div>
-            <span class="pill">Enviada</span>
-          </div>
-
-          <div class="job">
-            <div>
-              <h3>Asistente Administrativa</h3>
-              <div class="meta">Empresa A • Estado: Guardada</div>
-            </div>
-            <span class="pill">Guardada</span>
-          </div>
+      <div class="split">
+        <div class="field">
+          <label for="area">Área</label>
+          <select id="area">
+            <option>Marketing</option>
+            <option>TI / Datos</option>
+            <option>RR.HH.</option>
+            <option>Administración</option>
+            <option>Servicios</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="modalidad">Modalidad preferida</label>
+          <select id="modalidad">
+            <option>Híbrido</option>
+            <option>Remoto</option>
+            <option>Presencial</option>
+          </select>
         </div>
       </div>
 
-      <div class="card" style="margin-top:12px; background:#f8fafc; border-style:dashed;">
-        <h2 style="margin:0 0 10px; font-size:18px;">Sugerencia de mejora</h2>
-        <p style="margin:0;">
-          Para aumentar compatibilidad, considera completar tu experiencia y habilidades.
-          Luego revisa <b>Capacitación</b> para fortalecer empleabilidad.
+      <div class="split">
+        <div class="field">
+          <label for="experiencia">Experiencia</label>
+          <select id="experiencia">
+            <option>Junior</option>
+            <option>Semi-senior</option>
+            <option>Senior</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="comuna">Comuna / Ciudad</label>
+          <input id="comuna" placeholder="Ej: Santiago" />
+        </div>
+      </div>
+
+      <hr>
+
+      <h2>Modo Mamá / Cuidadora</h2>
+      <p>
+        Funcionalidad opcional para priorizar ofertas laborales compatibles con responsabilidades de cuidado.
+      </p>
+
+      <div class="card" style="background:#f8fafc; border-style:dashed;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <input id="careMode" type="checkbox" style="margin-top:4px;" />
+          <div>
+            <h3 style="margin:0 0 6px;">Activar modo cuidadora</h3>
+            <p style="margin:0;">
+              Al activarlo, FemJob prioriza vacantes con <b>flexibilidad</b>, <b>remoto/híbrido</b> y <b>jornada compatible</b>.
+            </p>
+          </div>
+        </div>
+
+        <div class="split" style="margin-top:12px;">
+          <div class="field">
+            <label for="careHours">Horario preferido</label>
+            <select id="careHours">
+              <option value="flexible">Flexible / por turnos</option>
+              <option value="parttime">Part-time</option>
+              <option value="tradicional">Tradicional (9–18)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="careRemote">Preferencia de modalidad</label>
+            <select id="careRemote">
+              <option value="remote">Remoto prioritario</option>
+              <option value="hybrid">Híbrido prioritario</option>
+              <option value="any">Cualquiera</option>
+            </select>
+          </div>
+        </div>
+
+        <p class="hint" style="margin-top:8px;">
+          *En este prototipo, estas opciones ajustan etiquetas y el filtro de “compatibles con cuidados” en Recomendaciones.
         </p>
-        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn" type="button" onclick="location.href='capacitacion.html'">Ir a Capacitación</button>
-          <button class="btn secondary" type="button" onclick="location.href='recomendaciones.html'">Ver recomendaciones</button>
-        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+        <button class="btn secondary" type="button" onclick="goRecommendations()">Ver recomendaciones</button>
       </div>
 
     </section>
+
   </div>
 
-  <div class="footer">FemJob • Perfil (demo)</div>
+  <div class="footer">FemJob • Mi Perfil (demo)</div>
 </main>
+
+<script>
+  const KEY_PROFILE = "femjob_profile_v1";
+  const KEY_CARE = "femjob_care_mode_v1";
+
+  function loadProfile(){
+    const raw = localStorage.getItem(KEY_PROFILE);
+    const data = raw ? JSON.parse(raw) : {};
+
+    document.getElementById("nombre").value = data.nombre || "";
+    document.getElementById("correo").value = data.correo || "";
+    document.getElementById("area").value = data.area || "Marketing";
+    document.getElementById("modalidad").value = data.modalidad || "Híbrido";
+    document.getElementById("experiencia").value = data.experiencia || "Junior";
+    document.getElementById("comuna").value = data.comuna || "";
+    document.getElementById("careHours").value = data.careHours || "flexible";
+    document.getElementById("careRemote").value = data.careRemote || "remote";
+
+    const care = localStorage.getItem(KEY_CARE) === "true";
+    document.getElementById("careMode").checked = care;
+    updateCareStatus(care);
+  }
+
+  function updateCareStatus(isOn){
+    const chip = document.getElementById("careStatus");
+    chip.style.display = isOn ? "inline-flex" : "none";
+    chip.textContent = isOn ? "Modo cuidadora activo" : "";
+  }
+
+  function saveProfile(){
+    const data = {
+      nombre: document.getElementById("nombre").value.trim(),
+      correo: document.getElementById("correo").value.trim(),
+      area: document.getElementById("area").value,
+      modalidad: document.getElementById("modalidad").value,
+      experiencia: document.getElementById("experiencia").value,
+      comuna: document.getElementById("comuna").value.trim(),
+      careHours: document.getElementById("careHours").value,
+      careRemote: document.getElementById("careRemote").value
+    };
+    localStorage.setItem(KEY_PROFILE, JSON.stringify(data));
+
+    const care = document.getElementById("careMode").checked;
+    localStorage.setItem(KEY_CARE, String(care));
+    updateCareStatus(care);
+
+    alert("Perfil guardado (demo).");
+  }
+
+  function resetProfile(){
+    localStorage.removeItem(KEY_PROFILE);
+    localStorage.removeItem(KEY_CARE);
+    loadProfile();
+    alert("Preferencias restablecidas (demo).");
+  }
+
+  function goRecommendations(){
+    saveProfile();
+    location.href = "recomendaciones.html";
+  }
+
+  document.getElementById("careMode").addEventListener("change", (e) => {
+    localStorage.setItem(KEY_CARE, String(e.target.checked));
+    updateCareStatus(e.target.checked);
+  });
+
+  window.addEventListener("load", loadProfile);
+</script>
 
 </body>
 </html>
