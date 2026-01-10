@@ -31,50 +31,36 @@
 
 <main class="container">
 
-  <!-- INTRO -->
   <section class="card">
     <span class="badge">Motor de recomendación (demo)</span>
     <h1>Recomendaciones personalizadas</h1>
     <p>
-      Esta sección presenta vacantes recomendadas según tu perfil.
-      El “swipe” tipo Tinder se adaptó a web: puedes <b>arrastrar</b> la tarjeta (móvil/PC) o usar botones.
+      Explora vacantes recomendadas. Puedes arrastrar la tarjeta (móvil/PC) o usar botones.
+      Si activaste el <b>Modo cuidadora</b>, podrás filtrar ofertas compatibles con cuidados.
     </p>
 
-    <div class="kpis">
-      <div class="kpi">
-        <div class="n">3</div>
-        <div class="t">Tarjetas (demo)</div>
-      </div>
-      <div class="kpi">
-        <div class="n">±90px</div>
-        <div class="t">Umbral swipe</div>
-      </div>
-      <div class="kpi">
-        <div class="n">Web</div>
-        <div class="t">Móvil + escritorio</div>
-      </div>
-    </div>
+    <div id="careBanner" class="care-chip" style="display:none;">Modo cuidadora activo</div>
   </section>
 
   <div class="grid">
 
-    <!-- SIDEBAR -->
     <aside class="card">
       <h2>Filtros rápidos</h2>
 
       <div class="field">
-        <label for="area">Área</label>
-        <select id="area">
+        <label>Área</label>
+        <select id="fArea">
           <option>Marketing</option>
           <option>TI / Datos</option>
           <option>RR.HH.</option>
           <option>Administración</option>
+          <option>Servicios</option>
         </select>
       </div>
 
       <div class="field">
-        <label for="mod">Modalidad</label>
-        <select id="mod">
+        <label>Modalidad</label>
+        <select id="fMod">
           <option>Híbrido</option>
           <option>Remoto</option>
           <option>Presencial</option>
@@ -82,92 +68,93 @@
       </div>
 
       <div class="field">
-        <label for="exp">Experiencia</label>
-        <select id="exp">
+        <label>Experiencia</label>
+        <select id="fExp">
           <option>Junior</option>
           <option>Semi-senior</option>
           <option>Senior</option>
         </select>
       </div>
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn secondary" type="button" onclick="alert('Filtros aplicados (demo)')">Aplicar</button>
-        <button class="btn" type="button" onclick="location.href='perfil.html'">Editar perfil</button>
-      </div>
-
       <hr>
 
-      <p style="font-size:12px;">
-        *En este MVP los filtros no alteran resultados reales. Se muestran para ilustrar el flujo.
+      <div class="field" style="margin-bottom:0;">
+        <label style="display:flex; gap:10px; align-items:center;">
+          <input id="careOnly" type="checkbox" />
+          Mostrar solo empleos compatibles con cuidados
+        </label>
+      </div>
+
+      <p class="hint" style="margin-top:8px;">
+        *Este filtro está pensado para usuarias cuidadoras (madres/cuidadoras). En el prototipo, se basa en etiquetas de compatibilidad.
       </p>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+        <button class="btn secondary" type="button" onclick="applyFilters()">Aplicar</button>
+        <button class="btn" type="button" onclick="location.href='perfil.html'">Editar perfil</button>
+      </div>
     </aside>
 
-    <!-- SWIPE -->
     <section class="card">
       <h2>Tarjetas recomendadas</h2>
-      <p style="margin-bottom:10px;">
-        Arrastra a la <b>derecha</b> para guardar ✅ y a la <b>izquierda</b> para descartar ❌.
-      </p>
+      <p class="meta" style="margin-bottom:10px;">Derecha = Guardar ✅ · Izquierda = Descartar ❌</p>
 
-      <!-- STACK -->
       <div class="swipe-wrap" id="swipeWrap" aria-label="Tarjetas de empleos recomendados">
 
-        <div class="swipe-card" data-id="1">
-          <h2 style="margin:0 0 6px;">Investigadora de Mercado</h2>
-          <div class="meta">Empresa A • Santiago • Híbrido</div>
+        <!-- Compatible con cuidados -->
+        <div class="swipe-card" data-compatible="true" data-id="1">
+          <div class="care-badge">Compatible con cuidados</div>
+          <h2 style="margin:0 0 6px;">Analista de Marketing (Part-time)</h2>
+          <div class="meta">Empresa Naranja • Santiago • Remoto</div>
           <div class="tags">
-            <span class="tag">Excel</span>
-            <span class="tag">Investigación</span>
-            <span class="tag">Reportes</span>
+            <span class="tag">Remoto</span>
+            <span class="tag">Horario flexible</span>
+            <span class="tag">Part-time</span>
           </div>
           <hr>
-          <p>
-            <b>Resumen:</b> análisis de tendencias, elaboración de reportes y apoyo en estudios internos.
-          </p>
-          <span class="pill">92% compatibilidad</span>
+          <p><b>Resumen:</b> apoyo en campañas, métricas y reportes. Jornada reducida y flexible.</p>
+          <span class="pill">90% compatibilidad</span>
         </div>
 
-        <div class="swipe-card" data-id="2">
-          <h2 style="margin:0 0 6px;">Analista de Marketing</h2>
-          <div class="meta">Empresa X • Santiago • Híbrido</div>
+        <!-- NO compatible (para demostrar filtro) -->
+        <div class="swipe-card" data-compatible="false" data-id="2">
+          <h2 style="margin:0 0 6px;">Asistente de Bodega</h2>
+          <div class="meta">Empresa X • Santiago • Presencial</div>
           <div class="tags">
-            <span class="tag">CRM</span>
-            <span class="tag">Excel</span>
-            <span class="tag">Campañas</span>
+            <span class="tag">Presencial</span>
+            <span class="tag">Turnos</span>
+            <span class="tag">Físico</span>
           </div>
           <hr>
-          <p>
-            <b>Resumen:</b> apoyo en campañas, seguimiento de métricas y generación de reportes.
-          </p>
-          <span class="pill">88% compatibilidad</span>
+          <p><b>Resumen:</b> apoyo operativo y logística. Requiere presencia completa y turnos.</p>
+          <span class="pill">72% compatibilidad</span>
         </div>
 
-        <div class="swipe-card" data-id="3">
-          <h2 style="margin:0 0 6px;">Coordinadora de RR.HH.</h2>
-          <div class="meta">Empresa Z • Santiago • Presencial</div>
+        <!-- Compatible con cuidados -->
+        <div class="swipe-card" data-compatible="true" data-id="3">
+          <div class="care-badge">Compatible con cuidados</div>
+          <h2 style="margin:0 0 6px;">Soporte Administrativo (Híbrido)</h2>
+          <div class="meta">Empresa Z • Santiago • Híbrido</div>
           <div class="tags">
-            <span class="tag">Selección</span>
-            <span class="tag">Entrevistas</span>
-            <span class="tag">Onboarding</span>
+            <span class="tag">Híbrido</span>
+            <span class="tag">Horario definido</span>
+            <span class="tag">Beneficios familiares</span>
           </div>
           <hr>
-          <p>
-            <b>Resumen:</b> coordinación de selección, entrevistas y apoyo administrativo.
-          </p>
-          <span class="pill">81% compatibilidad</span>
+          <p><b>Resumen:</b> apoyo administrativo, documentación y coordinación. Modalidad híbrida.</p>
+          <span class="pill">84% compatibilidad</span>
         </div>
 
       </div>
 
-      <!-- ACTIONS -->
       <div class="swipe-actions">
         <button class="btn bad" type="button" onclick="swipe('left')">Descartar</button>
         <button class="btn ok" type="button" onclick="swipe('right')">Guardar</button>
         <button class="btn primary" type="button" onclick="alert('Postulación simulada')">Postular</button>
       </div>
 
-      <p style="margin-top:12px; font-size:12px;">
-        *Este prototipo no persiste acciones. El swipe se usa para demostrar la interacción en web.
+      <p class="hint" style="margin-top:12px;">
+        *En este prototipo, “guardar” y “descartar” solo simulan la interacción. (Opcional: se puede guardar en localStorage si lo quieres).
       </p>
     </section>
 
@@ -177,11 +164,26 @@
 </main>
 
 <script>
+  const KEY_PROFILE = "femjob_profile_v1";
+  const KEY_CARE = "femjob_care_mode_v1";
+
   // ===== Botones: animación + rotación de tarjetas =====
   function swipe(direction){
     const wrap = document.getElementById('swipeWrap');
     const card = wrap.querySelector('.swipe-card');
     if(!card) return;
+
+    // Si filtro careOnly está activo, no dejes “guardar/descartar” una no-compatible sin aviso
+    const careOnly = document.getElementById("careOnly").checked;
+    const isCompatible = card.dataset.compatible === "true";
+
+    if(careOnly && !isCompatible){
+      // manda al fondo sin swipe completo para “saltar” no compatibles
+      wrap.appendChild(card);
+      ensureTopMatches();
+      attachDragToTopCard();
+      return;
+    }
 
     card.classList.add(direction === 'left' ? 'is-left' : 'is-right');
 
@@ -189,19 +191,19 @@
       card.classList.remove('is-left', 'is-right');
       card.style.transform = '';
       wrap.appendChild(card);
-      attachDragToTopCard(); // activar drag en la nueva tarjeta superior
+      ensureTopMatches();
+      attachDragToTopCard();
     }, 260);
   }
 
   // ===== Swipe real: touch + mouse =====
-  const THRESHOLD = 90; // px para decidir
+  const THRESHOLD = 90;
 
   function attachDragToTopCard(){
     const wrap = document.getElementById('swipeWrap');
     const top = wrap.querySelector('.swipe-card');
     if(!top) return;
 
-    // evitar múltiples listeners
     if(top.dataset.dragReady === '1') return;
     top.dataset.dragReady = '1';
 
@@ -222,7 +224,6 @@
       dx = clientX - startX;
       dy = clientY - startY;
 
-      // rotación leve según desplazamiento
       const rot = Math.max(-10, Math.min(10, dx / 12));
       top.style.transform = `translate(${dx}px, ${dy * 0.25}px) rotate(${rot}deg)`;
     }
@@ -233,31 +234,45 @@
 
       top.style.transition = 'transform .22s ease, opacity .22s ease';
 
+      const careOnly = document.getElementById("careOnly").checked;
+      const isCompatible = top.dataset.compatible === "true";
+
       if(dx > THRESHOLD){
         // derecha = guardar
+        if(careOnly && !isCompatible){
+          top.style.transform = '';
+          return;
+        }
         top.classList.add('is-right');
         setTimeout(() => {
           top.classList.remove('is-right');
           top.style.transform = '';
           wrap.appendChild(top);
+          ensureTopMatches();
           attachDragToTopCard();
         }, 240);
+
       } else if(dx < -THRESHOLD){
         // izquierda = descartar
+        if(careOnly && !isCompatible){
+          top.style.transform = '';
+          return;
+        }
         top.classList.add('is-left');
         setTimeout(() => {
           top.classList.remove('is-left');
           top.style.transform = '';
           wrap.appendChild(top);
+          ensureTopMatches();
           attachDragToTopCard();
         }, 240);
+
       } else {
-        // volver al centro
         top.style.transform = '';
       }
     }
 
-    // Touch (móvil)
+    // Touch
     top.addEventListener('touchstart', (e) => {
       const t = e.touches[0];
       onStart(t.clientX, t.clientY);
@@ -270,7 +285,7 @@
 
     top.addEventListener('touchend', () => onEnd(), { passive: true });
 
-    // Mouse (PC)
+    // Mouse
     top.addEventListener('mousedown', (e) => {
       onStart(e.clientX, e.clientY);
 
@@ -286,7 +301,59 @@
     });
   }
 
+  // Si careOnly está activo, asegura que la tarjeta superior sea compatible
+  function ensureTopMatches(){
+    const wrap = document.getElementById('swipeWrap');
+    const careOnly = document.getElementById("careOnly").checked;
+    if(!careOnly) return;
+
+    const cards = Array.from(wrap.querySelectorAll('.swipe-card'));
+    if(cards.length === 0) return;
+
+    // intenta rotar hasta encontrar una compatible (máx N intentos)
+    let tries = cards.length;
+    while(tries-- > 0){
+      const top = wrap.querySelector('.swipe-card');
+      if(!top) break;
+      const ok = top.dataset.compatible === "true";
+      if(ok) break;
+      wrap.appendChild(top);
+    }
+  }
+
+  function applyFilters(){
+    // MVP: no filtra “de verdad” por área/mod/exp, solo simula
+    ensureTopMatches();
+    attachDragToTopCard();
+    alert("Filtros aplicados (demo).");
+  }
+
+  function loadUserPrefs(){
+    const care = localStorage.getItem(KEY_CARE) === "true";
+    const banner = document.getElementById("careBanner");
+    banner.style.display = care ? "inline-flex" : "none";
+
+    // Por defecto: si modo cuidadora está ON, activar filtro de compatibilidad
+    const careOnly = document.getElementById("careOnly");
+    careOnly.checked = care;
+
+    // Cargar perfil para setear selects (opcional)
+    const raw = localStorage.getItem(KEY_PROFILE);
+    const data = raw ? JSON.parse(raw) : {};
+    document.getElementById("fArea").value = data.area || "Marketing";
+    document.getElementById("fMod").value = data.modalidad || "Híbrido";
+    document.getElementById("fExp").value = data.experiencia || "Junior";
+
+    ensureTopMatches();
+  }
+
+  document.getElementById("careOnly").addEventListener("change", () => {
+    ensureTopMatches();
+    attachDragToTopCard();
+  });
+
   window.addEventListener('load', () => {
+    loadUserPrefs();
     attachDragToTopCard();
   });
 </script>
