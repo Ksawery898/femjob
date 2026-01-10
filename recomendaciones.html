@@ -10,12 +10,12 @@
 
 <header class="topbar">
   <div class="nav">
-    <a class="brand" href="index.html" aria-label="FemJob - Ir a inicio">
-      <div class="logo" aria-hidden="true"></div>
+    <a class="brand" href="index.html">
+      <div class="logo"></div>
       <span>FemJob</span>
     </a>
 
-    <nav class="navlinks" aria-label="Navegación principal">
+    <nav class="navlinks">
       <a href="index.html">Inicio</a>
       <a class="active" href="recomendaciones.html">Recomendaciones</a>
       <a href="perfil.html">Mi Perfil</a>
@@ -32,51 +32,18 @@
 <main class="container">
 
   <section class="card">
-    <span class="badge">Motor de recomendación (demo)</span>
-    <h1>Recomendaciones personalizadas</h1>
-    <p>
-      Explora vacantes recomendadas. Puedes arrastrar la tarjeta (móvil/PC) o usar botones.
-      Si activaste el <b>Modo cuidadora</b>, podrás filtrar ofertas compatibles con cuidados.
+    <span class="badge">Recomendaciones (MVP útil)</span>
+    <h1>Vacantes adaptadas a tu perfil</h1>
+    <p id="introText">
+      FemJob puntúa y ordena vacantes según tu perfil (área, modalidad, experiencia y habilidades).
     </p>
-
-    <div id="careBanner" class="care-chip" style="display:none;">Modo cuidadora activo</div>
+    <div id="profileChip" class="care-chip" style="display:none;"></div>
   </section>
 
   <div class="grid">
 
     <aside class="card">
-      <h2>Filtros rápidos</h2>
-
-      <div class="field">
-        <label>Área</label>
-        <select id="fArea">
-          <option>Marketing</option>
-          <option>TI / Datos</option>
-          <option>RR.HH.</option>
-          <option>Administración</option>
-          <option>Servicios</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Modalidad</label>
-        <select id="fMod">
-          <option>Híbrido</option>
-          <option>Remoto</option>
-          <option>Presencial</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Experiencia</label>
-        <select id="fExp">
-          <option>Junior</option>
-          <option>Semi-senior</option>
-          <option>Senior</option>
-        </select>
-      </div>
-
-      <hr>
+      <h2>Opciones</h2>
 
       <div class="field" style="margin-bottom:0;">
         <label style="display:flex; gap:10px; align-items:center;">
@@ -86,66 +53,26 @@
       </div>
 
       <p class="hint" style="margin-top:8px;">
-        *Este filtro está pensado para usuarias cuidadoras (madres/cuidadoras). En el prototipo, se basa en etiquetas de compatibilidad.
+        *Disponible si activaste el modo cuidadora en tu perfil.
       </p>
 
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-        <button class="btn secondary" type="button" onclick="applyFilters()">Aplicar</button>
+        <button class="btn secondary" type="button" onclick="rerank()">Actualizar recomendaciones</button>
         <button class="btn" type="button" onclick="location.href='perfil.html'">Editar perfil</button>
       </div>
+
+      <hr>
+
+      <p class="meta" id="statsText">Cargando recomendaciones…</p>
     </aside>
 
     <section class="card">
-      <h2>Tarjetas recomendadas</h2>
-      <p class="meta" style="margin-bottom:10px;">Derecha = Guardar ✅ · Izquierda = Descartar ❌</p>
+      <h2>Top recomendaciones</h2>
+      <p class="meta" style="margin-bottom:10px;">
+        Arrastra (móvil/PC) o usa botones. Se muestra compatibilidad calculada.
+      </p>
 
-      <div class="swipe-wrap" id="swipeWrap" aria-label="Tarjetas de empleos recomendados">
-
-        <!-- Compatible con cuidados -->
-        <div class="swipe-card" data-compatible="true" data-id="1">
-          <div class="care-badge">Compatible con cuidados</div>
-          <h2 style="margin:0 0 6px;">Analista de Marketing (Part-time)</h2>
-          <div class="meta">Empresa Naranja • Santiago • Remoto</div>
-          <div class="tags">
-            <span class="tag">Remoto</span>
-            <span class="tag">Horario flexible</span>
-            <span class="tag">Part-time</span>
-          </div>
-          <hr>
-          <p><b>Resumen:</b> apoyo en campañas, métricas y reportes. Jornada reducida y flexible.</p>
-          <span class="pill">90% compatibilidad</span>
-        </div>
-
-        <!-- NO compatible (para demostrar filtro) -->
-        <div class="swipe-card" data-compatible="false" data-id="2">
-          <h2 style="margin:0 0 6px;">Asistente de Bodega</h2>
-          <div class="meta">Empresa X • Santiago • Presencial</div>
-          <div class="tags">
-            <span class="tag">Presencial</span>
-            <span class="tag">Turnos</span>
-            <span class="tag">Físico</span>
-          </div>
-          <hr>
-          <p><b>Resumen:</b> apoyo operativo y logística. Requiere presencia completa y turnos.</p>
-          <span class="pill">72% compatibilidad</span>
-        </div>
-
-        <!-- Compatible con cuidados -->
-        <div class="swipe-card" data-compatible="true" data-id="3">
-          <div class="care-badge">Compatible con cuidados</div>
-          <h2 style="margin:0 0 6px;">Soporte Administrativo (Híbrido)</h2>
-          <div class="meta">Empresa Z • Santiago • Híbrido</div>
-          <div class="tags">
-            <span class="tag">Híbrido</span>
-            <span class="tag">Horario definido</span>
-            <span class="tag">Beneficios familiares</span>
-          </div>
-          <hr>
-          <p><b>Resumen:</b> apoyo administrativo, documentación y coordinación. Modalidad híbrida.</p>
-          <span class="pill">84% compatibilidad</span>
-        </div>
-
-      </div>
+      <div class="swipe-wrap" id="swipeWrap"></div>
 
       <div class="swipe-actions">
         <button class="btn bad" type="button" onclick="swipe('left')">Descartar</button>
@@ -154,208 +81,226 @@
       </div>
 
       <p class="hint" style="margin-top:12px;">
-        *En este prototipo, “guardar” y “descartar” solo simulan la interacción. (Opcional: se puede guardar en localStorage si lo quieres).
+        *MVP: la compatibilidad se calcula localmente. No hay backend.
       </p>
     </section>
 
   </div>
 
-  <div class="footer">FemJob • Recomendaciones (demo)</div>
+  <div class="footer">FemJob • Recomendaciones (MVP)</div>
 </main>
 
 <script>
-  const KEY_PROFILE = "femjob_profile_v1";
-  const KEY_CARE = "femjob_care_mode_v1";
+  const KEY_PROFILE = "femjob_profile_mvp_v1";
 
-  // ===== Botones: animación + rotación de tarjetas =====
-  function swipe(direction){
-    const wrap = document.getElementById('swipeWrap');
-    const card = wrap.querySelector('.swipe-card');
-    if(!card) return;
+  // ===== Dataset de vacantes (demo) =====
+  const JOBS = [
+    { id: 1, title:"Analista de Marketing (Part-time)", company:"Empresa Naranja", city:"Santiago", area:"Marketing", modality:"Remoto", exp:"Junior",
+      skills:["excel","marketing","comunicacion","crm"], careCompatible:true, tags:["Remoto","Flexible","Part-time"], summary:"Apoyo en campañas y reportes. Jornada reducida." },
+    { id: 2, title:"Asistente Administrativo", company:"Grupo Andes", city:"Santiago", area:"Administración", modality:"Híbrido", exp:"Junior",
+      skills:["excel","gestion","comunicacion"], careCompatible:true, tags:["Híbrido","Horario definido","Beneficios"], summary:"Documentación, coordinación y apoyo administrativo." },
+    { id: 3, title:"Analista de Datos (SQL)", company:"DataLab", city:"Santiago", area:"TI / Datos", modality:"Híbrido", exp:"Semi-senior",
+      skills:["sql","data","excel"], careCompatible:true, tags:["SQL","Híbrido","Datos"], summary:"Reportería, consultas SQL y análisis de KPIs." },
+    { id: 4, title:"Asistente RR.HH.", company:"PeopleCo", city:"Santiago", area:"RR.HH.", modality:"Presencial", exp:"Junior",
+      skills:["rrhh","comunicacion","gestion"], careCompatible:false, tags:["Presencial","Onboarding","Selección"], summary:"Apoyo en selección y administración de personal." },
+    { id: 5, title:"Soporte al Cliente", company:"ServicioPlus", city:"Santiago", area:"Servicios", modality:"Remoto", exp:"Junior",
+      skills:["atencion","comunicacion"], careCompatible:true, tags:["Remoto","Clientes","Turnos"], summary:"Atención al cliente, seguimiento y resolución de casos." },
+    { id: 6, title:"Desarrolladora Junior (Python)", company:"TechNova", city:"Santiago", area:"TI / Datos", modality:"Remoto", exp:"Junior",
+      skills:["python","sql","data"], careCompatible:true, tags:["Python","Remoto","Junior"], summary:"Desarrollo de scripts, automatización y apoyo en data." },
+  ];
 
-    // Si filtro careOnly está activo, no dejes “guardar/descartar” una no-compatible sin aviso
-    const careOnly = document.getElementById("careOnly").checked;
-    const isCompatible = card.dataset.compatible === "true";
+  // ===== Helpers =====
+  function getProfile(){
+    const raw = localStorage.getItem(KEY_PROFILE);
+    return raw ? JSON.parse(raw) : null;
+  }
 
-    if(careOnly && !isCompatible){
-      // manda al fondo sin swipe completo para “saltar” no compatibles
-      wrap.appendChild(card);
-      ensureTopMatches();
-      attachDragToTopCard();
+  function overlapCount(a, b){
+    const setB = new Set(b);
+    return a.filter(x => setB.has(x)).length;
+  }
+
+  // ===== Scoring (compatibilidad real) =====
+  function scoreJob(job, profile){
+    // Pesos simples para MVP (fácil de explicar en informe)
+    const W_AREA = 35;
+    const W_MODALITY = 20;
+    const W_EXP = 15;
+    const W_SKILLS = 25;
+    const W_CARE = 5;
+
+    let score = 0;
+
+    if(profile.area === job.area) score += W_AREA;
+    if(profile.modalidad === job.modality) score += W_MODALITY;
+
+    // experiencia: match exacto suma; si job pide menos o igual, suma parcial
+    if(profile.experiencia === job.exp) score += W_EXP;
+    else {
+      const order = { "Junior": 1, "Semi-senior": 2, "Senior": 3 };
+      if(order[profile.experiencia] > order[job.exp]) score += Math.round(W_EXP * 0.6);
+      else score += Math.round(W_EXP * 0.2);
+    }
+
+    const skillsMatch = overlapCount(profile.skills || [], job.skills || []);
+    const skillsMax = Math.max(1, (job.skills || []).length);
+    score += Math.round((skillsMatch / skillsMax) * W_SKILLS);
+
+    if(profile.careMode && job.careCompatible) score += W_CARE;
+    if(profile.careMode && !job.careCompatible) score -= 3;
+
+    // clamp
+    score = Math.max(0, Math.min(100, score));
+    return score;
+  }
+
+  function renderCard(job, pct){
+    const careBadge = job.careCompatible ? `<div class="care-badge">Compatible con cuidados</div>` : ``;
+
+    const tagsHtml = (job.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
+
+    return `
+      <div class="swipe-card" data-id="${job.id}" data-care="${job.careCompatible ? "true":"false"}">
+        ${careBadge}
+        <h2 style="margin:0 0 6px;">${job.title}</h2>
+        <div class="meta">${job.company} • ${job.city} • ${job.modality}</div>
+        <div class="tags">${tagsHtml}</div>
+        <hr>
+        <p><b>Resumen:</b> ${job.summary}</p>
+        <span class="pill">${pct}% compatibilidad</span>
+      </div>
+    `;
+  }
+
+  // ===== Build recommendations =====
+  function buildRecommendations(){
+    const profile = getProfile();
+    const wrap = document.getElementById("swipeWrap");
+
+    if(!profile){
+      document.getElementById("introText").textContent =
+        "No encontramos tu perfil. Ve a “Mi Perfil” para crearlo y recibir recomendaciones personalizadas.";
+      document.getElementById("statsText").textContent = "Sin perfil guardado.";
+      wrap.innerHTML = `
+        <div class="card" style="background:#f8fafc;">
+          <h3 style="margin:0 0 8px;">Aún no tienes perfil</h3>
+          <p style="margin:0 0 12px;">Crea tu perfil para ver vacantes adaptadas a tus preferencias y habilidades.</p>
+          <button class="btn primary" onclick="location.href='perfil.html'">Crear perfil</button>
+        </div>
+      `;
       return;
     }
 
-    card.classList.add(direction === 'left' ? 'is-left' : 'is-right');
+    // Chip resumen
+    const chip = document.getElementById("profileChip");
+    chip.style.display = "inline-flex";
+    chip.textContent = `Perfil: ${profile.area} • ${profile.modalidad} • ${profile.experiencia}`;
+
+    // Care filter enabled?
+    const careOnly = document.getElementById("careOnly");
+    careOnly.disabled = !profile.careMode;
+    if(!profile.careMode) careOnly.checked = false;
+
+    // Scoring + sorting
+    let scored = JOBS.map(j => ({ job: j, score: scoreJob(j, profile) }))
+      .sort((a,b) => b.score - a.score);
+
+    // Optionally filter care-compatible
+    if(profile.careMode && careOnly.checked){
+      scored = scored.filter(x => x.job.careCompatible);
+    }
+
+    // Render top N as swipe stack
+    const topN = scored.slice(0, 6);
+    wrap.innerHTML = topN.map(x => renderCard(x.job, x.score)).join("");
+
+    document.getElementById("statsText").textContent =
+      `Mostrando ${topN.length} recomendaciones ordenadas por compatibilidad.`;
+
+    // activar drag en la primera
+    attachDragToTopCard();
+  }
+
+  function rerank(){
+    buildRecommendations();
+    alert("Recomendaciones actualizadas (demo).");
+  }
+
+  // ===== Swipe actions (rotate cards) =====
+  function swipe(direction){
+    const wrap = document.getElementById("swipeWrap");
+    const card = wrap.querySelector(".swipe-card");
+    if(!card) return;
+
+    card.classList.add(direction === "left" ? "is-left" : "is-right");
 
     setTimeout(() => {
-      card.classList.remove('is-left', 'is-right');
-      card.style.transform = '';
+      card.classList.remove("is-left","is-right");
+      card.style.transform = "";
       wrap.appendChild(card);
-      ensureTopMatches();
       attachDragToTopCard();
     }, 260);
   }
 
-  // ===== Swipe real: touch + mouse =====
+  // ===== Swipe drag touch + mouse =====
   const THRESHOLD = 90;
 
   function attachDragToTopCard(){
-    const wrap = document.getElementById('swipeWrap');
-    const top = wrap.querySelector('.swipe-card');
+    const wrap = document.getElementById("swipeWrap");
+    const top = wrap.querySelector(".swipe-card");
     if(!top) return;
 
-    if(top.dataset.dragReady === '1') return;
-    top.dataset.dragReady = '1';
+    // prevent duplicate listeners
+    if(top.dataset.dragReady === "1") return;
+    top.dataset.dragReady = "1";
 
-    let startX = 0, startY = 0;
-    let dx = 0, dy = 0;
-    let dragging = false;
+    let startX=0, startY=0, dx=0, dy=0, dragging=false;
 
-    function onStart(clientX, clientY){
-      dragging = true;
-      startX = clientX;
-      startY = clientY;
-      dx = 0; dy = 0;
-      top.style.transition = 'none';
+    function onStart(x,y){
+      dragging=true; startX=x; startY=y; dx=0; dy=0;
+      top.style.transition="none";
     }
-
-    function onMove(clientX, clientY){
+    function onMove(x,y){
       if(!dragging) return;
-      dx = clientX - startX;
-      dy = clientY - startY;
-
-      const rot = Math.max(-10, Math.min(10, dx / 12));
-      top.style.transform = `translate(${dx}px, ${dy * 0.25}px) rotate(${rot}deg)`;
+      dx=x-startX; dy=y-startY;
+      const rot = Math.max(-10, Math.min(10, dx/12));
+      top.style.transform = `translate(${dx}px, ${dy*0.25}px) rotate(${rot}deg)`;
     }
-
     function onEnd(){
       if(!dragging) return;
-      dragging = false;
-
-      top.style.transition = 'transform .22s ease, opacity .22s ease';
-
-      const careOnly = document.getElementById("careOnly").checked;
-      const isCompatible = top.dataset.compatible === "true";
+      dragging=false;
+      top.style.transition="transform .22s ease, opacity .22s ease";
 
       if(dx > THRESHOLD){
-        // derecha = guardar
-        if(careOnly && !isCompatible){
-          top.style.transform = '';
-          return;
-        }
-        top.classList.add('is-right');
-        setTimeout(() => {
-          top.classList.remove('is-right');
-          top.style.transform = '';
-          wrap.appendChild(top);
-          ensureTopMatches();
-          attachDragToTopCard();
-        }, 240);
-
+        top.classList.add("is-right");
+        setTimeout(()=>{ top.classList.remove("is-right"); top.style.transform=""; wrap.appendChild(top); attachDragToTopCard(); }, 240);
       } else if(dx < -THRESHOLD){
-        // izquierda = descartar
-        if(careOnly && !isCompatible){
-          top.style.transform = '';
-          return;
-        }
-        top.classList.add('is-left');
-        setTimeout(() => {
-          top.classList.remove('is-left');
-          top.style.transform = '';
-          wrap.appendChild(top);
-          ensureTopMatches();
-          attachDragToTopCard();
-        }, 240);
-
+        top.classList.add("is-left");
+        setTimeout(()=>{ top.classList.remove("is-left"); top.style.transform=""; wrap.appendChild(top); attachDragToTopCard(); }, 240);
       } else {
-        top.style.transform = '';
+        top.style.transform="";
       }
     }
 
-    // Touch
-    top.addEventListener('touchstart', (e) => {
-      const t = e.touches[0];
-      onStart(t.clientX, t.clientY);
-    }, { passive: true });
+    // touch
+    top.addEventListener("touchstart", e => { const t=e.touches[0]; onStart(t.clientX, t.clientY); }, {passive:true});
+    top.addEventListener("touchmove", e => { const t=e.touches[0]; onMove(t.clientX, t.clientY); }, {passive:true});
+    top.addEventListener("touchend", () => onEnd(), {passive:true});
 
-    top.addEventListener('touchmove', (e) => {
-      const t = e.touches[0];
-      onMove(t.clientX, t.clientY);
-    }, { passive: true });
-
-    top.addEventListener('touchend', () => onEnd(), { passive: true });
-
-    // Mouse
-    top.addEventListener('mousedown', (e) => {
+    // mouse
+    top.addEventListener("mousedown", e => {
       onStart(e.clientX, e.clientY);
-
-      const mm = (ev) => onMove(ev.clientX, ev.clientY);
-      const mu = () => {
-        document.removeEventListener('mousemove', mm);
-        document.removeEventListener('mouseup', mu);
-        onEnd();
-      };
-
-      document.addEventListener('mousemove', mm);
-      document.addEventListener('mouseup', mu);
+      const mm = ev => onMove(ev.clientX, ev.clientY);
+      const mu = () => { document.removeEventListener("mousemove", mm); document.removeEventListener("mouseup", mu); onEnd(); };
+      document.addEventListener("mousemove", mm);
+      document.addEventListener("mouseup", mu);
     });
   }
 
-  // Si careOnly está activo, asegura que la tarjeta superior sea compatible
-  function ensureTopMatches(){
-    const wrap = document.getElementById('swipeWrap');
-    const careOnly = document.getElementById("careOnly").checked;
-    if(!careOnly) return;
+  // Care-only checkbox listener
+  document.getElementById("careOnly").addEventListener("change", buildRecommendations);
 
-    const cards = Array.from(wrap.querySelectorAll('.swipe-card'));
-    if(cards.length === 0) return;
-
-    // intenta rotar hasta encontrar una compatible (máx N intentos)
-    let tries = cards.length;
-    while(tries-- > 0){
-      const top = wrap.querySelector('.swipe-card');
-      if(!top) break;
-      const ok = top.dataset.compatible === "true";
-      if(ok) break;
-      wrap.appendChild(top);
-    }
-  }
-
-  function applyFilters(){
-    // MVP: no filtra “de verdad” por área/mod/exp, solo simula
-    ensureTopMatches();
-    attachDragToTopCard();
-    alert("Filtros aplicados (demo).");
-  }
-
-  function loadUserPrefs(){
-    const care = localStorage.getItem(KEY_CARE) === "true";
-    const banner = document.getElementById("careBanner");
-    banner.style.display = care ? "inline-flex" : "none";
-
-    // Por defecto: si modo cuidadora está ON, activar filtro de compatibilidad
-    const careOnly = document.getElementById("careOnly");
-    careOnly.checked = care;
-
-    // Cargar perfil para setear selects (opcional)
-    const raw = localStorage.getItem(KEY_PROFILE);
-    const data = raw ? JSON.parse(raw) : {};
-    document.getElementById("fArea").value = data.area || "Marketing";
-    document.getElementById("fMod").value = data.modalidad || "Híbrido";
-    document.getElementById("fExp").value = data.experiencia || "Junior";
-
-    ensureTopMatches();
-  }
-
-  document.getElementById("careOnly").addEventListener("change", () => {
-    ensureTopMatches();
-    attachDragToTopCard();
-  });
-
-  window.addEventListener('load', () => {
-    loadUserPrefs();
-    attachDragToTopCard();
-  });
+  window.addEventListener("load", buildRecommendations);
 </script>
 
 </body>
