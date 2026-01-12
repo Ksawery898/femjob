@@ -553,3 +553,9 @@ input:focus, select:focus{
     width: 100%;
   }
 }
+
+.logo-img{
+  height: 36px;
+  width: auto;
+  display: block;
+}
