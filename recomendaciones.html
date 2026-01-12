@@ -18,6 +18,7 @@
     <nav class="navlinks">
       <a href="index.html">Inicio</a>
       <a class="active" href="recomendaciones.html">Recomendaciones</a>
+      <a href="guardadas.html">Guardadas</a>
       <a href="perfil.html">Mi Perfil</a>
       <a href="capacitacion.html">Capacitación</a>
       <a href="empresa.html">Empresas</a>
@@ -37,14 +38,17 @@
       <span class="badge">Recomendaciones (Persona)</span>
       <h1>Vacantes adaptadas a tu perfil</h1>
       <p id="introText">Cargando…</p>
-      <div id="profileChip" class="care-chip" style="display:none;"></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+        <div id="profileChip" class="care-chip" style="display:none;"></div>
+        <div id="savedChip" class="care-chip" style="display:none;"></div>
+      </div>
     </section>
 
     <div class="grid">
       <aside class="card">
         <h2>Opciones</h2>
 
-        <div class="field" style="margin-bottom:0;">
+        <div class="field" style="margin-bottom:0 remember;">
           <label style="display:flex; gap:10px; align-items:center;">
             <input id="careOnly" type="checkbox" />
             Mostrar solo empleos compatibles con cuidados
@@ -58,23 +62,29 @@
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
           <button class="btn secondary" type="button" onclick="build()">Actualizar</button>
           <button class="btn" type="button" onclick="location.href='perfil.html'">Editar perfil</button>
+          <button class="btn primary" type="button" onclick="location.href='guardadas.html'">Ver guardadas</button>
         </div>
 
         <hr>
         <p class="meta" id="statsText">…</p>
+        <p class="hint">Tip: Guardar ✅ agrega la vacante a “Guardadas”.</p>
       </aside>
 
       <section class="card">
         <h2>Top recomendaciones</h2>
-        <p class="meta" style="margin-bottom:10px;">Arrastra o usa botones.</p>
+        <p class="meta" style="margin-bottom:10px;">Arrastra o usa botones. “Guardar” guarda de verdad.</p>
 
         <div class="swipe-wrap" id="swipeWrap"></div>
 
         <div class="swipe-actions">
           <button class="btn bad" type="button" onclick="swipe('left')">Descartar</button>
           <button class="btn ok" type="button" onclick="swipe('right')">Guardar</button>
-          <button class="btn primary" type="button" onclick="alert('Postulación simulada')">Postular</button>
+          <button class="btn primary" type="button" onclick="applyNow()">Postular</button>
         </div>
+
+        <p class="hint" style="margin-top:12px;">
+          *MVP: se guarda en localStorage (no backend). Ideal para demo universitaria.
+        </p>
       </section>
     </div>
   </div>
@@ -100,15 +110,18 @@
 </main>
 
 <script>
-  const KEY = "femjob_user_v1";
+  // ===== Claves =====
+  const KEY_USER = "femjob_user_v1";
+  const KEY_SAVED = "femjob_saved_jobs_v1";
 
-  const raw = localStorage.getItem(KEY);
-  if(!raw){
+  // ===== Guard: si no hay perfil, ir a perfil =====
+  const rawUser = localStorage.getItem(KEY_USER);
+  if(!rawUser){
     location.href = "perfil.html";
   }
-  const user = raw ? JSON.parse(raw) : null;
+  const user = rawUser ? JSON.parse(rawUser) : null;
 
-  // Mostrar vista según rol
+  // ===== Vista según rol =====
   const personaView = document.getElementById("personaView");
   const empresaView = document.getElementById("empresaView");
 
@@ -118,7 +131,7 @@
     personaView.style.display = "block";
   }
 
-  // ===== Solo si es persona, construimos recomendaciones =====
+  // ===== Dataset de vacantes (demo) =====
   const JOBS = [
     { id: 1, title:"Analista de Marketing (Part-time)", company:"Empresa Naranja", city:"Santiago", area:"Marketing", modality:"Remoto", exp:"Junior",
       skills:["excel","marketing","comunicacion","crm"], careCompatible:true, tags:["Remoto","Flexible","Part-time"], summary:"Apoyo en campañas y reportes. Jornada reducida." },
@@ -134,6 +147,36 @@
       skills:["python","sql","data"], careCompatible:true, tags:["Python","Remoto","Junior"], summary:"Automatización y apoyo en data." },
   ];
 
+  // ===== Saved jobs helpers =====
+  function getSaved(){
+    const raw = localStorage.getItem(KEY_SAVED);
+    return raw ? JSON.parse(raw) : []; // array de IDs
+  }
+  function setSaved(ids){
+    localStorage.setItem(KEY_SAVED, JSON.stringify(ids));
+  }
+  function isSaved(id){
+    return getSaved().includes(id);
+  }
+  function addSaved(id){
+    const ids = getSaved();
+    if(!ids.includes(id)) ids.push(id);
+    setSaved(ids);
+    updateSavedChip();
+  }
+  function removeSaved(id){
+    const ids = getSaved().filter(x => x !== id);
+    setSaved(ids);
+    updateSavedChip();
+  }
+  function updateSavedChip(){
+    const chip = document.getElementById("savedChip");
+    const n = getSaved().length;
+    chip.style.display = "inline-flex";
+    chip.textContent = `Guardadas: ${n}`;
+  }
+
+  // ===== Scoring =====
   function overlapCount(a, b){
     const setB = new Set(b);
     return a.filter(x => setB.has(x)).length;
@@ -164,6 +207,7 @@
   function renderCard(job, pct){
     const careBadge = job.careCompatible ? `<div class="care-badge">Compatible con cuidados</div>` : ``;
     const tagsHtml = (job.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
+    const savedState = isSaved(job.id);
 
     return `
       <div class="swipe-card" data-id="${job.id}">
@@ -173,7 +217,10 @@
         <div class="tags">${tagsHtml}</div>
         <hr>
         <p><b>Resumen:</b> ${job.summary}</p>
-        <span class="pill">${pct}% compatibilidad</span>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <span class="pill">${pct}% compatibilidad</span>
+          <span class="tag">${savedState ? "⭐ En guardadas" : "Aún no guardada"}</span>
+        </div>
       </div>
     `;
   }
@@ -187,6 +234,8 @@
     const chip = document.getElementById("profileChip");
     chip.style.display = "inline-flex";
     chip.textContent = `Perfil: ${user.area} • ${user.modalidad} • ${user.experiencia}`;
+
+    updateSavedChip();
 
     const careOnly = document.getElementById("careOnly");
     careOnly.disabled = !user.careMode;
@@ -207,20 +256,76 @@
     attachDragToTopCard();
   }
 
+  // ===== Acciones =====
+  function getTopCard(){
+    const wrap = document.getElementById("swipeWrap");
+    return wrap.querySelector(".swipe-card");
+  }
+
+  function getJobById(id){
+    return JOBS.find(j => j.id === id);
+  }
+
+  function applyNow(){
+    const card = getTopCard();
+    if(!card) return;
+    const id = Number(card.dataset.id);
+    const job = getJobById(id);
+    if(!job) return;
+
+    alert(`Postulación simulada ✅\n\nVacante: ${job.title}\nEmpresa: ${job.company}`);
+  }
+
   function swipe(direction){
     const wrap = document.getElementById("swipeWrap");
-    const card = wrap.querySelector(".swipe-card");
+    const card = getTopCard();
     if(!card) return;
+
+    const id = Number(card.dataset.id);
+
+    if(direction === "right"){
+      addSaved(id); // ✅ guardar real
+      showToast("Guardado en Guardadas ✅");
+    } else {
+      showToast("Descartado ❌");
+    }
 
     card.classList.add(direction === "left" ? "is-left" : "is-right");
     setTimeout(() => {
       card.classList.remove("is-left","is-right");
       card.style.transform = "";
       wrap.appendChild(card);
-      attachDragToTopCard();
+      build(); // re-render para actualizar estado "⭐ En guardadas"
     }, 260);
   }
 
+  // ===== Toast simple =====
+  function showToast(text){
+    let t = document.getElementById("toast");
+    if(!t){
+      t = document.createElement("div");
+      t.id = "toast";
+      t.style.position = "fixed";
+      t.style.left = "50%";
+      t.style.bottom = "18px";
+      t.style.transform = "translateX(-50%)";
+      t.style.padding = "10px 14px";
+      t.style.borderRadius = "999px";
+      t.style.border = "1px solid rgba(0,0,0,0.10)";
+      t.style.background = "#fff";
+      t.style.boxShadow = "0 10px 24px rgba(0,0,0,0.12)";
+      t.style.fontWeight = "800";
+      t.style.fontSize = "13px";
+      t.style.zIndex = "9999";
+      document.body.appendChild(t);
+    }
+    t.textContent = text;
+    t.style.opacity = "1";
+    clearTimeout(window.__toastTO);
+    window.__toastTO = setTimeout(() => { t.style.opacity = "0"; }, 1400);
+  }
+
+  // ===== Swipe drag =====
   const THRESHOLD = 90;
   function attachDragToTopCard(){
     const wrap = document.getElementById("swipeWrap");
@@ -244,11 +349,9 @@
       top.style.transition="transform .22s ease, opacity .22s ease";
 
       if(dx > THRESHOLD){
-        top.classList.add("is-right");
-        setTimeout(()=>{ top.classList.remove("is-right"); top.style.transform=""; wrap.appendChild(top); attachDragToTopCard(); }, 240);
+        swipe("right");
       } else if(dx < -THRESHOLD){
-        top.classList.add("is-left");
-        setTimeout(()=>{ top.classList.remove("is-left"); top.style.transform=""; wrap.appendChild(top); attachDragToTopCard(); }, 240);
+        swipe("left");
       } else {
         top.style.transform="";
       }
@@ -268,7 +371,6 @@
   }
 
   document.getElementById("careOnly")?.addEventListener("change", build);
-
   window.addEventListener("load", build);
 </script>
 
