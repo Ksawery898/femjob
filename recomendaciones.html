@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FemJob | Recomendaciones</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="femjob_icon_64.png">
 </head>
 <body>
 
 <header class="topbar">
   <div class="nav">
     <a class="brand" href="index.html">
-      <img src="femjob_logo_h36.png" alt="FemJob" class="logo-img">
+      <div class="logo"></div>
       <span>FemJob</span>
     </a>
 
@@ -33,12 +32,13 @@
 
 <main class="container">
 
-  <!-- CONTENEDOR PERSONA -->
+  <!-- PERSONA -->
   <div id="personaView" style="display:none;">
     <section class="card">
       <span class="badge">Recomendaciones (Persona)</span>
       <h1>Vacantes adaptadas a tu perfil</h1>
       <p id="introText">Cargando…</p>
+
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
         <div id="profileChip" class="care-chip" style="display:none;"></div>
         <div id="savedChip" class="care-chip" style="display:none;"></div>
@@ -49,7 +49,7 @@
       <aside class="card">
         <h2>Opciones</h2>
 
-        <div class="field" style="margin-bottom:0 remember;">
+        <div class="field" style="margin-bottom:0;">
           <label style="display:flex; gap:10px; align-items:center;">
             <input id="careOnly" type="checkbox" />
             Mostrar solo empleos compatibles con cuidados
@@ -61,7 +61,7 @@
         </p>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-          <button class="btn secondary" type="button" onclick="build()">Actualizar</button>
+          <button class="btn secondary" type="button" onclick="refreshQueue()">Actualizar</button>
           <button class="btn" type="button" onclick="location.href='perfil.html'">Editar perfil</button>
           <button class="btn primary" type="button" onclick="location.href='guardadas.html'">Ver guardadas</button>
         </div>
@@ -72,32 +72,31 @@
       </aside>
 
       <section class="card">
-        <h2>Top recomendaciones</h2>
-        <p class="meta" style="margin-bottom:10px;">Arrastra o usa botones. “Guardar” guarda de verdad.</p>
+        <h2>Tarjetas recomendadas</h2>
+        <p class="meta" style="margin-bottom:10px;">Arrastra o usa botones. (Ahora sí avanza).</p>
 
         <div class="swipe-wrap" id="swipeWrap"></div>
 
         <div class="swipe-actions">
-          <button class="btn bad" type="button" onclick="swipe('left')">Descartar</button>
-          <button class="btn ok" type="button" onclick="swipe('right')">Guardar</button>
+          <button class="btn bad" type="button" onclick="btnSwipe('left')">Descartar</button>
+          <button class="btn ok" type="button" onclick="btnSwipe('right')">Guardar</button>
           <button class="btn primary" type="button" onclick="applyNow()">Postular</button>
         </div>
 
         <p class="hint" style="margin-top:12px;">
-          *MVP: se guarda en localStorage (no backend). Ideal para demo universitaria.
+          *MVP: ranking local + guardado en localStorage (sin backend).
         </p>
       </section>
     </div>
   </div>
 
-  <!-- CONTENEDOR EMPRESA -->
+  <!-- EMPRESA -->
   <div id="empresaView" style="display:none;">
     <section class="card">
       <span class="badge">Cuenta Empresa</span>
       <h1>Esta sección es para personas</h1>
       <p>
-        Estás usando FemJob como <b>Empresa</b>. Aquí no se muestran recomendaciones de vacantes.
-        Ve a tu panel para publicar ofertas y revisar postulaciones (demo).
+        Estás usando FemJob como <b>Empresa</b>. Aquí no se muestran recomendaciones.
       </p>
 
       <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
@@ -107,22 +106,26 @@
     </section>
   </div>
 
-  <div class="footer">FemJob • Interacción por roles</div>
+  <div class="footer">FemJob • Recomendaciones</div>
 </main>
 
 <script>
-  // ===== Claves =====
-  const KEY_USER = "femjob_user_v1";
+  // =======================
+  // Config / Keys
+  // =======================
+  const KEY_USER  = "femjob_user_v1";
   const KEY_SAVED = "femjob_saved_jobs_v1";
 
-  // ===== Guard: si no hay perfil, ir a perfil =====
+  // =======================
+  // Guard: si no hay perfil, ir a perfil
+  // =======================
   const rawUser = localStorage.getItem(KEY_USER);
-  if(!rawUser){
-    location.href = "perfil.html";
-  }
+  if(!rawUser) location.href = "perfil.html";
   const user = rawUser ? JSON.parse(rawUser) : null;
 
-  // ===== Vista según rol =====
+  // =======================
+  // Vista por rol
+  // =======================
   const personaView = document.getElementById("personaView");
   const empresaView = document.getElementById("empresaView");
 
@@ -132,7 +135,9 @@
     personaView.style.display = "block";
   }
 
-  // ===== Dataset de vacantes (demo) =====
+  // =======================
+  // Dataset de vacantes (demo)
+  // =======================
   const JOBS = [
     { id: 1, title:"Analista de Marketing (Part-time)", company:"Empresa Naranja", city:"Santiago", area:"Marketing", modality:"Remoto", exp:"Junior",
       skills:["excel","marketing","comunicacion","crm"], careCompatible:true, tags:["Remoto","Flexible","Part-time"], summary:"Apoyo en campañas y reportes. Jornada reducida." },
@@ -148,25 +153,19 @@
       skills:["python","sql","data"], careCompatible:true, tags:["Python","Remoto","Junior"], summary:"Automatización y apoyo en data." },
   ];
 
-  // ===== Saved jobs helpers =====
+  // =======================
+  // Saved helpers
+  // =======================
   function getSaved(){
     const raw = localStorage.getItem(KEY_SAVED);
-    return raw ? JSON.parse(raw) : []; // array de IDs
+    return raw ? JSON.parse(raw) : [];
   }
   function setSaved(ids){
     localStorage.setItem(KEY_SAVED, JSON.stringify(ids));
   }
-  function isSaved(id){
-    return getSaved().includes(id);
-  }
   function addSaved(id){
     const ids = getSaved();
     if(!ids.includes(id)) ids.push(id);
-    setSaved(ids);
-    updateSavedChip();
-  }
-  function removeSaved(id){
-    const ids = getSaved().filter(x => x !== id);
     setSaved(ids);
     updateSavedChip();
   }
@@ -176,8 +175,11 @@
     chip.style.display = "inline-flex";
     chip.textContent = `Guardadas: ${n}`;
   }
+  function isSaved(id){ return getSaved().includes(id); }
 
-  // ===== Scoring =====
+  // =======================
+  // Scoring
+  // =======================
   function overlapCount(a, b){
     const setB = new Set(b);
     return a.filter(x => setB.has(x)).length;
@@ -205,6 +207,55 @@
     return Math.max(0, Math.min(100, score));
   }
 
+  // =======================
+  // Queue de recomendaciones (SOLUCIÓN AL BUCLE)
+  // =======================
+  let QUEUE = [];   // [{job, score}]
+  let idx = 0;      // puntero
+
+  function buildQueue(){
+    if(!user || user.rol === "empresa") return;
+
+    const careOnlyEl = document.getElementById("careOnly");
+    careOnlyEl.disabled = !user.careMode;
+    if(!user.careMode) careOnlyEl.checked = false;
+
+    let scored = JOBS
+      .map(j => ({ job: j, score: scoreJob(j, user) }))
+      .sort((a,b) => b.score - a.score);
+
+    if(user.careMode && careOnlyEl.checked){
+      scored = scored.filter(x => x.job.careCompatible);
+    }
+
+    QUEUE = scored;
+    idx = 0;
+  }
+
+  function renderStack(){
+    const wrap = document.getElementById("swipeWrap");
+
+    if(QUEUE.length === 0){
+      wrap.innerHTML = `
+        <div class="card" style="background:#f8fafc;">
+          <h3 style="margin:0 0 8px;">No hay vacantes para mostrar</h3>
+          <p style="margin:0;">Prueba desactivar el filtro de cuidados o ajustar tu perfil.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const remaining = QUEUE.length - idx;
+    document.getElementById("statsText").textContent =
+      `Mostrando ${Math.min(3, remaining)} de ${remaining} restantes en tu ranking.`;
+
+    // Renderiza 3 tarjetas (top visible + 2 debajo)
+    const slice = QUEUE.slice(idx, idx + 3);
+
+    wrap.innerHTML = slice.map(x => renderCard(x.job, x.score)).join("");
+    attachDragToTopCard();
+  }
+
   function renderCard(job, pct){
     const careBadge = job.careCompatible ? `<div class="care-badge">Compatible con cuidados</div>` : ``;
     const tagsHtml = (job.tags || []).map(t => `<span class="tag">${t}</span>`).join("");
@@ -226,41 +277,17 @@
     `;
   }
 
-  function build(){
-    if(!user || user.rol === "empresa") return;
-
-    document.getElementById("introText").textContent =
-      `FemJob ordena vacantes según tu perfil: ${user.area} • ${user.modalidad} • ${user.experiencia}.`;
-
-    const chip = document.getElementById("profileChip");
-    chip.style.display = "inline-flex";
-    chip.textContent = `Perfil: ${user.area} • ${user.modalidad} • ${user.experiencia}`;
-
-    updateSavedChip();
-
-    const careOnly = document.getElementById("careOnly");
-    careOnly.disabled = !user.careMode;
-    if(!user.careMode) careOnly.checked = false;
-
-    let scored = JOBS
-      .map(j => ({ job: j, score: scoreJob(j, user) }))
-      .sort((a,b) => b.score - a.score);
-
-    if(user.careMode && careOnly.checked){
-      scored = scored.filter(x => x.job.careCompatible);
-    }
-
-    const top = scored.slice(0, 6);
-    document.getElementById("swipeWrap").innerHTML = top.map(x => renderCard(x.job, x.score)).join("");
-    document.getElementById("statsText").textContent = `Mostrando ${top.length} vacantes ordenadas por compatibilidad.`;
-
-    attachDragToTopCard();
+  function refreshQueue(){
+    buildQueue();
+    renderStack();
+    showToast("Recomendaciones actualizadas ✅");
   }
 
-  // ===== Acciones =====
+  // =======================
+  // Acciones
+  // =======================
   function getTopCard(){
-    const wrap = document.getElementById("swipeWrap");
-    return wrap.querySelector(".swipe-card");
+    return document.querySelector("#swipeWrap .swipe-card");
   }
 
   function getJobById(id){
@@ -273,34 +300,39 @@
     const id = Number(card.dataset.id);
     const job = getJobById(id);
     if(!job) return;
-
     alert(`Postulación simulada ✅\n\nVacante: ${job.title}\nEmpresa: ${job.company}`);
   }
 
-  function swipe(direction){
-    const wrap = document.getElementById("swipeWrap");
-    const card = getTopCard();
-    if(!card) return;
+  // Botones: swippea la tarjeta superior
+  function btnSwipe(direction){
+    const top = getTopCard();
+    if(!top) return;
+    doSwipe(top, direction);
+  }
 
-    const id = Number(card.dataset.id);
+  // Swipe real (reutilizable)
+  function doSwipe(cardEl, direction){
+    const id = Number(cardEl.dataset.id);
 
     if(direction === "right"){
-      addSaved(id); // ✅ guardar real
+      addSaved(id);
       showToast("Guardado en Guardadas ✅");
-    } else {
+    }else{
       showToast("Descartado ❌");
     }
 
-    card.classList.add(direction === "left" ? "is-left" : "is-right");
+    cardEl.classList.add(direction === "left" ? "is-left" : "is-right");
+
     setTimeout(() => {
-      card.classList.remove("is-left","is-right");
-      card.style.transform = "";
-      wrap.appendChild(card);
-      build(); // re-render para actualizar estado "⭐ En guardadas"
+      // avanzar puntero (esto es lo que evita el bucle)
+      idx = Math.min(idx + 1, QUEUE.length);
+      renderStack();
     }, 260);
   }
 
-  // ===== Toast simple =====
+  // =======================
+  // Toast
+  // =======================
   function showToast(text){
     let t = document.getElementById("toast");
     if(!t){
@@ -326,11 +358,13 @@
     window.__toastTO = setTimeout(() => { t.style.opacity = "0"; }, 1400);
   }
 
-  // ===== Swipe drag =====
+  // =======================
+  // Drag swipe (touch + mouse)
+  // =======================
   const THRESHOLD = 90;
+
   function attachDragToTopCard(){
-    const wrap = document.getElementById("swipeWrap");
-    const top = wrap.querySelector(".swipe-card");
+    const top = getTopCard();
     if(!top) return;
     if(top.dataset.dragReady === "1") return;
     top.dataset.dragReady = "1";
@@ -350,18 +384,20 @@
       top.style.transition="transform .22s ease, opacity .22s ease";
 
       if(dx > THRESHOLD){
-        swipe("right");
+        doSwipe(top, "right");
       } else if(dx < -THRESHOLD){
-        swipe("left");
+        doSwipe(top, "left");
       } else {
-        top.style.transform="";
+        top.style.transform = "";
       }
     }
 
+    // Touch
     top.addEventListener("touchstart", e => { const t=e.touches[0]; onStart(t.clientX, t.clientY); }, {passive:true});
     top.addEventListener("touchmove", e => { const t=e.touches[0]; onMove(t.clientX, t.clientY); }, {passive:true});
     top.addEventListener("touchend", () => onEnd(), {passive:true});
 
+    // Mouse
     top.addEventListener("mousedown", e => {
       onStart(e.clientX, e.clientY);
       const mm = ev => onMove(ev.clientX, ev.clientY);
@@ -371,11 +407,28 @@
     });
   }
 
-  document.getElementById("careOnly")?.addEventListener("change", build);
-  window.addEventListener("load", build);
+  // =======================
+  // Init
+  // =======================
+  function init(){
+    if(!user || user.rol === "empresa") return;
+
+    document.getElementById("introText").textContent =
+      `FemJob ordena vacantes según tu perfil: ${user.area} • ${user.modalidad} • ${user.experiencia}.`;
+
+    const chip = document.getElementById("profileChip");
+    chip.style.display = "inline-flex";
+    chip.textContent = `Perfil: ${user.area} • ${user.modalidad} • ${user.experiencia}`;
+
+    updateSavedChip();
+
+    buildQueue();
+    renderStack();
+  }
+
+  document.getElementById("careOnly")?.addEventListener("change", refreshQueue);
+  window.addEventListener("load", init);
 </script>
 
 </body>
 </html>
-
-
