@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FemJob | Recomendaciones</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="femjob_icon_64.png">
 </head>
 <body>
 
 <header class="topbar">
   <div class="nav">
     <a class="brand" href="index.html">
-      <div class="logo"></div>
+      <!-- Si ya integraste el logo como imagen, reemplaza por tu <img ...> -->
+      <div class="logo" aria-hidden="true"></div>
       <span>FemJob</span>
     </a>
 
@@ -33,7 +33,9 @@
 
 <main class="container">
 
-  <!-- PERSONA -->
+  <!-- =======================
+       VISTA PERSONA
+  ======================== -->
   <div id="personaView" style="display:none;">
     <section class="card">
       <span class="badge">Recomendaciones (Persona)</span>
@@ -69,12 +71,11 @@
 
         <hr>
         <p class="meta" id="statsText">…</p>
-        <p class="hint">Tip: Guardar ✅ agrega la vacante a “Guardadas”.</p>
       </aside>
 
       <section class="card">
         <h2>Tarjetas recomendadas</h2>
-        <p class="meta" style="margin-bottom:10px;">Arrastra o usa botones. (Ahora sí avanza).</p>
+        <p class="meta" style="margin-bottom:10px;">Arrastra o usa botones. (Avanza correctamente).</p>
 
         <div class="swipe-wrap" id="swipeWrap"></div>
 
@@ -91,7 +92,9 @@
     </div>
   </div>
 
-  <!-- EMPRESA -->
+  <!-- =======================
+       VISTA EMPRESA
+  ======================== -->
   <div id="empresaView" style="display:none;">
     <section class="card">
       <span class="badge">Cuenta Empresa</span>
@@ -112,13 +115,13 @@
 
 <script>
   // =======================
-  // Config / Keys
+  // Keys
   // =======================
   const KEY_USER  = "femjob_user_v1";
   const KEY_SAVED = "femjob_saved_jobs_v1";
 
   // =======================
-  // Guard: si no hay perfil, ir a perfil
+  // Si no hay usuario -> perfil
   // =======================
   const rawUser = localStorage.getItem(KEY_USER);
   if(!rawUser) location.href = "perfil.html";
@@ -137,7 +140,7 @@
   }
 
   // =======================
-  // Dataset de vacantes (demo)
+  // Dataset demo
   // =======================
   const JOBS = [
     { id: 1, title:"Analista de Marketing (Part-time)", company:"Empresa Naranja", city:"Santiago", area:"Marketing", modality:"Remoto", exp:"Junior",
@@ -155,7 +158,7 @@
   ];
 
   // =======================
-  // Saved helpers
+  // Guardadas (localStorage)
   // =======================
   function getSaved(){
     const raw = localStorage.getItem(KEY_SAVED);
@@ -163,6 +166,9 @@
   }
   function setSaved(ids){
     localStorage.setItem(KEY_SAVED, JSON.stringify(ids));
+  }
+  function isSaved(id){
+    return getSaved().includes(id);
   }
   function addSaved(id){
     const ids = getSaved();
@@ -176,10 +182,9 @@
     chip.style.display = "inline-flex";
     chip.textContent = `Guardadas: ${n}`;
   }
-  function isSaved(id){ return getSaved().includes(id); }
 
   // =======================
-  // Scoring
+  // Scoring / Matching
   // =======================
   function overlapCount(a, b){
     const setB = new Set(b);
@@ -209,15 +214,16 @@
   }
 
   // =======================
-  // Queue de recomendaciones (SOLUCIÓN AL BUCLE)
+  // Cola + puntero (ANTI-BUCLE)
   // =======================
-  let QUEUE = [];   // [{job, score}]
-  let idx = 0;      // puntero
+  let QUEUE = []; // [{job, score}]
+  let idx = 0;
+  let isSwiping = false;
 
   function buildQueue(){
-    if(!user || user.rol === "empresa") return;
-
     const careOnlyEl = document.getElementById("careOnly");
+
+    // careOnly solo si careMode está activo
     careOnlyEl.disabled = !user.careMode;
     if(!user.careMode) careOnlyEl.checked = false;
 
@@ -231,30 +237,6 @@
 
     QUEUE = scored;
     idx = 0;
-  }
-
-  function renderStack(){
-    const wrap = document.getElementById("swipeWrap");
-
-    if(QUEUE.length === 0){
-      wrap.innerHTML = `
-        <div class="card" style="background:#f8fafc;">
-          <h3 style="margin:0 0 8px;">No hay vacantes para mostrar</h3>
-          <p style="margin:0;">Prueba desactivar el filtro de cuidados o ajustar tu perfil.</p>
-        </div>
-      `;
-      return;
-    }
-
-    const remaining = QUEUE.length - idx;
-    document.getElementById("statsText").textContent =
-      `Mostrando ${Math.min(3, remaining)} de ${remaining} restantes en tu ranking.`;
-
-    // Renderiza 3 tarjetas (top visible + 2 debajo)
-    const slice = QUEUE.slice(idx, idx + 3);
-
-    wrap.innerHTML = slice.map(x => renderCard(x.job, x.score)).join("");
-    attachDragToTopCard();
   }
 
   function renderCard(job, pct){
@@ -276,6 +258,46 @@
         </div>
       </div>
     `;
+  }
+
+  function renderStack(){
+    const wrap = document.getElementById("swipeWrap");
+
+    if(QUEUE.length === 0){
+      wrap.innerHTML = `
+        <div class="card" style="background:#f8fafc;">
+          <h3 style="margin:0 0 8px;">No hay vacantes para mostrar</h3>
+          <p style="margin:0;">Prueba desactivar el filtro de cuidados o ajustar tu perfil.</p>
+        </div>
+      `;
+      document.getElementById("statsText").textContent = "Sin resultados con tus filtros.";
+      return;
+    }
+
+    if(idx >= QUEUE.length){
+      wrap.innerHTML = `
+        <div class="card" style="background:#f8fafc;">
+          <h3 style="margin:0 0 8px;">¡Listo! No hay más recomendaciones</h3>
+          <p style="margin:0 0 12px;">Puedes actualizar o revisar tus guardadas.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn secondary" onclick="refreshQueue()">Actualizar</button>
+            <button class="btn primary" onclick="location.href='guardadas.html'">Ver guardadas</button>
+          </div>
+        </div>
+      `;
+      document.getElementById("statsText").textContent = "Fin de recomendaciones.";
+      return;
+    }
+
+    const remaining = QUEUE.length - idx;
+    document.getElementById("statsText").textContent =
+      `Mostrando ${Math.min(3, remaining)} de ${remaining} restantes.`;
+
+    const slice = QUEUE.slice(idx, idx + 3);
+    wrap.innerHTML = slice.map(x => renderCard(x.job, x.score)).join("");
+
+    // asegurar que los listeners se apliquen al nuevo DOM
+    setTimeout(attachDragToTopCard, 0);
   }
 
   function refreshQueue(){
@@ -304,29 +326,33 @@
     alert(`Postulación simulada ✅\n\nVacante: ${job.title}\nEmpresa: ${job.company}`);
   }
 
-  // Botones: swippea la tarjeta superior
   function btnSwipe(direction){
-    const top = getTopCard();
-    if(!top) return;
-    doSwipe(top, direction);
+    const card = getTopCard();
+    if(!card || isSwiping) return;
+    doSwipe(card, direction);
   }
 
-  // Swipe real (reutilizable)
   function doSwipe(cardEl, direction){
+    if(isSwiping) return;
+    isSwiping = true;
+
     const id = Number(cardEl.dataset.id);
 
     if(direction === "right"){
       addSaved(id);
       showToast("Guardado en Guardadas ✅");
-    }else{
+    } else {
       showToast("Descartado ❌");
     }
 
+    // animación
+    cardEl.style.pointerEvents = "none";
     cardEl.classList.add(direction === "left" ? "is-left" : "is-right");
 
     setTimeout(() => {
-      // avanzar puntero (esto es lo que evita el bucle)
-      idx = Math.min(idx + 1, QUEUE.length);
+      // avanzar UNA vez (esto evita el bucle)
+      idx++;
+      isSwiping = false;
       renderStack();
     }, 260);
   }
@@ -372,16 +398,24 @@
 
     let startX=0, startY=0, dx=0, dy=0, dragging=false;
 
-    function onStart(x,y){ dragging=true; startX=x; startY=y; dx=0; dy=0; top.style.transition="none"; }
+    function onStart(x,y){
+      if(isSwiping) return;
+      dragging=true;
+      startX=x; startY=y; dx=0; dy=0;
+      top.style.transition="none";
+    }
+
     function onMove(x,y){
       if(!dragging) return;
       dx=x-startX; dy=y-startY;
       const rot = Math.max(-10, Math.min(10, dx/12));
       top.style.transform = `translate(${dx}px, ${dy*0.25}px) rotate(${rot}deg)`;
     }
+
     function onEnd(){
       if(!dragging) return;
       dragging=false;
+
       top.style.transition="transform .22s ease, opacity .22s ease";
 
       if(dx > THRESHOLD){
@@ -394,15 +428,29 @@
     }
 
     // Touch
-    top.addEventListener("touchstart", e => { const t=e.touches[0]; onStart(t.clientX, t.clientY); }, {passive:true});
-    top.addEventListener("touchmove", e => { const t=e.touches[0]; onMove(t.clientX, t.clientY); }, {passive:true});
+    top.addEventListener("touchstart", e => {
+      const t=e.touches[0];
+      onStart(t.clientX, t.clientY);
+    }, {passive:true});
+
+    top.addEventListener("touchmove", e => {
+      const t=e.touches[0];
+      onMove(t.clientX, t.clientY);
+    }, {passive:true});
+
     top.addEventListener("touchend", () => onEnd(), {passive:true});
 
     // Mouse
     top.addEventListener("mousedown", e => {
       onStart(e.clientX, e.clientY);
+
       const mm = ev => onMove(ev.clientX, ev.clientY);
-      const mu = () => { document.removeEventListener("mousemove", mm); document.removeEventListener("mouseup", mu); onEnd(); };
+      const mu = () => {
+        document.removeEventListener("mousemove", mm);
+        document.removeEventListener("mouseup", mu);
+        onEnd();
+      };
+
       document.addEventListener("mousemove", mm);
       document.addEventListener("mouseup", mu);
     });
@@ -433,4 +481,3 @@
 
 </body>
 </html>
-
