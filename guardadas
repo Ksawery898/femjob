@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FemJob | Guardadas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="nav">
+    <a class="brand" href="index.html">
+      <div class="logo"></div>
+      <span>FemJob</span>
+    </a>
+
+    <nav class="navlinks">
+      <a href="index.html">Inicio</a>
+      <a href="recomendaciones.html">Recomendaciones</a>
+      <a class="active" href="guardadas.html">Guardadas</a>
+      <a href="perfil.html">Mi Perfil</a>
+      <a href="capacitacion.html">Capacitación</a>
+      <a href="empresa.html">Empresas</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="faq.html">FAQ</a>
+      <a href="terminos.html">Términos</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <div id="empresaView" style="display:none;">
+    <section class="card">
+      <span class="badge">Cuenta Empresa</span>
+      <h1>Guardadas es solo para personas</h1>
+      <p>Estás usando FemJob como Empresa. Esta sección está pensada para candidatas.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+        <button class="btn primary" onclick="location.href='empresa.html'">Ir a panel empresa</button>
+        <button class="btn secondary" onclick="location.href='perfil.html'">Cambiar rol</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="personaView" style="display:none;">
+    <section class="card">
+      <span class="badge">Vacantes guardadas</span>
+      <h1>Mis guardadas</h1>
+      <p>Aquí aparecen las vacantes que guardaste desde Recomendaciones.</p>
+      <div id="countChip" class="care-chip" style="display:none;"></div>
+    </section>
+
+    <div class="grid">
+      <aside class="card">
+        <h2>Acciones</h2>
+        <p class="meta">Gestiona tus vacantes guardadas.</p>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn primary" type="button" onclick="location.href='recomendaciones.html'">Seguir explorando</button>
+          <button class="btn" type="button" onclick="clearSaved()">Vaciar guardadas</button>
+        </div>
+
+        <hr>
+        <p class="hint">*MVP: guardadas se almacenan en localStorage.</p>
+      </aside>
+
+      <section class="card">
+        <h2>Listado</h2>
+        <div id="list" class="list"></div>
+      </section>
+    </div>
+  </div>
+
+  <div class="footer">FemJob • Guardadas (MVP)</div>
+</main>
+
+<script>
+  const KEY_USER = "femjob_user_v1";
+  const KEY_SAVED = "femjob_saved_jobs_v1";
+
+  const rawUser = localStorage.getItem(KEY_USER);
+  if(!rawUser){
+    location.href = "perfil.html";
+  }
+  const user = rawUser ? JSON.parse(rawUser) : null;
+
+  const personaView = document.getElementById("personaView");
+  const empresaView = document.getElementById("empresaView");
+
+  if(user && user.rol === "empresa"){
+    empresaView.style.display = "block";
+  } else {
+    personaView.style.display = "block";
+  }
+
+  // Debe coincidir con el dataset en recomendaciones.html
+  const JOBS = [
+    { id: 1, title:"Analista de Marketing (Part-time)", company:"Empresa Naranja", city:"Santiago", modality:"Remoto",
+      tags:["Remoto","Flexible","Part-time"], summary:"Apoyo en campañas y reportes. Jornada reducida." },
+    { id: 2, title:"Asistente Administrativo", company:"Grupo Andes", city:"Santiago", modality:"Híbrido",
+      tags:["Híbrido","Horario definido","Beneficios"], summary:"Documentación, coordinación y apoyo administrativo." },
+    { id: 3, title:"Analista de Datos (SQL)", company:"DataLab", city:"Santiago", modality:"Híbrido",
+      tags:["SQL","Híbrido","Datos"], summary:"Reportería, consultas SQL y análisis de KPIs." },
+    { id: 4, title:"Asistente RR.HH.", company:"PeopleCo", city:"Santiago", modality:"Presencial",
+      tags:["Presencial","Onboarding","Selección"], summary:"Apoyo en selección y administración." },
+    { id: 5, title:"Soporte al Cliente", company:"ServicioPlus", city:"Santiago", modality:"Remoto",
+      tags:["Remoto","Clientes","Turnos"], summary:"Atención al cliente y seguimiento." },
+    { id: 6, title:"Desarrolladora Junior (Python)", company:"TechNova", city:"Santiago", modality:"Remoto",
+      tags:["Python","Remoto","Junior"], summary:"Automatización y apoyo en data." },
+  ];
+
+  function getSaved(){
+    const raw = localStorage.getItem(KEY_SAVED);
+    return raw ? JSON.parse(raw) : [];
+  }
+  function setSaved(ids){
+    localStorage.setItem(KEY_SAVED, JSON.stringify(ids));
+  }
+
+  function removeSaved(id){
+    const ids = getSaved().filter(x => x !== id);
+    setSaved(ids);
+    render();
+  }
+
+  function clearSaved(){
+    if(!confirm("¿Vaciar todas las guardadas?")) return;
+    setSaved([]);
+    render();
+  }
+
+  function render(){
+    if(user && user.rol === "empresa") return;
+
+    const ids = getSaved();
+    const chip = document.getElementById("countChip");
+    chip.style.display = "inline-flex";
+    chip.textContent = `Guardadas: ${ids.length}`;
+
+    const list = document.getElementById("list");
+
+    if(ids.length === 0){
+      list.innerHTML = `
+        <div class="card" style="background:#f8fafc;">
+          <h3 style="margin:0 0 8px;">Aún no tienes guardadas</h3>
+          <p style="margin:0 0 12px;">Ve a Recomendaciones y guarda vacantes para verlas aquí.</p>
+          <button class="btn primary" onclick="location.href='recomendaciones.html'">Ir a recomendaciones</button>
+        </div>
+      `;
+      return;
+    }
+
+    const jobs = ids.map(id => JOBS.find(j => j.id === id)).filter(Boolean);
+
+    list.innerHTML = jobs.map(j => `
+      <div class="job">
+        <div>
+          <h3 style="margin:0 0 6px;">${j.title}</h3>
+          <div class="meta">${j.company} • ${j.city} • ${j.modality}</div>
+          <div class="tags" style="margin-top:6px;">
+            ${j.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+          </div>
+          <p style="margin-top:10px;"><b>Resumen:</b> ${j.summary}</p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:8px; min-width:160px; align-items:flex-end;">
+          <button class="btn primary" onclick="alert('Postulación simulada ✅')">Postular</button>
+          <button class="btn" onclick="removeSaved(${j.id})">Quitar</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  window.addEventListener("load", render);
+</script>
+
+</body>
+</html>
