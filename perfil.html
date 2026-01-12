@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FemJob | Mi Perfil</title>
+  <title>FemJob | Crear Perfil</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <header class="topbar">
   <div class="nav">
-    <a class="brand" href="index.html">
-      <div class="logo"></div>
+    <a class="brand" href="index.html" aria-label="FemJob - Ir a inicio">
+      <div class="logo" aria-hidden="true"></div>
       <span>FemJob</span>
     </a>
 
-    <nav class="navlinks">
+    <nav class="navlinks" aria-label="Navegación principal">
       <a href="index.html">Inicio</a>
       <a href="recomendaciones.html">Recomendaciones</a>
       <a class="active" href="perfil.html">Mi Perfil</a>
@@ -32,186 +32,394 @@
 <main class="container">
 
   <section class="card">
-    <span class="badge">Funcionalidad útil (MVP)</span>
-    <h1>Crear / Editar Perfil</h1>
-    <p>
-      Completa tu perfil para que FemJob te recomiende vacantes según tus intereses, habilidades y preferencias.
-      Los datos se guardan en tu navegador (localStorage).
+    <span class="badge">Onboarding (MVP)</span>
+    <h1 id="titleH1">Crear perfil</h1>
+    <p id="subtitleP">
+      Para usar FemJob, primero debes crear tu perfil. Luego podrás elegir si eres Persona Natural o Empresa.
     </p>
   </section>
 
   <div class="grid">
 
+    <!-- SIDEBAR -->
     <aside class="card">
       <h2>Acciones</h2>
-      <p class="meta">Guarda tu perfil para ver recomendaciones personalizadas.</p>
+      <p class="meta">Guarda para desbloquear el resto de opciones.</p>
 
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn primary" type="button" onclick="saveProfile()">Guardar perfil</button>
-        <button class="btn" type="button" onclick="resetProfile()">Restablecer</button>
-        <button class="btn secondary" type="button" onclick="goRecommendations()">Ver recomendaciones</button>
+        <button class="btn primary" type="button" onclick="saveBasic()">Guardar perfil</button>
+        <button class="btn" type="button" onclick="resetAll()">Borrar perfil</button>
+        <button class="btn secondary" type="button" onclick="goRecommendations()">Ir a recomendaciones</button>
       </div>
 
       <hr>
 
-      <div id="savedMsg" class="care-chip" style="display:none;">Perfil guardado</div>
+      <div id="chipStep" class="care-chip" style="display:none;">Perfil creado ✅</div>
       <p class="hint" style="margin-top:10px;">
-        *MVP: el perfil se utiliza para puntuar y ordenar vacantes por compatibilidad.
+        *Los datos se guardan en tu navegador (localStorage).
       </p>
     </aside>
 
+    <!-- MAIN -->
     <section class="card">
-      <h2>Datos personales</h2>
 
-      <div class="split">
-        <div class="field">
-          <label for="nombre">Nombre</label>
-          <input id="nombre" placeholder="Ej: Daniela Pérez" />
-        </div>
-        <div class="field">
-          <label for="correo">Correo</label>
-          <input id="correo" placeholder="Ej: daniela@mail.com" />
-        </div>
-      </div>
+      <!-- =========================
+           PASO 1: PERFIL BÁSICO
+      ========================== -->
+      <div id="step1">
+        <h2>Paso 1: Datos básicos</h2>
+        <p>Estos datos son obligatorios para continuar.</p>
 
-      <hr>
-
-      <h2>Preferencias laborales</h2>
-
-      <div class="split">
-        <div class="field">
-          <label for="area">Área principal</label>
-          <select id="area">
-            <option>Marketing</option>
-            <option>TI / Datos</option>
-            <option>RR.HH.</option>
-            <option>Administración</option>
-            <option>Servicios</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="modalidad">Modalidad preferida</label>
-          <select id="modalidad">
-            <option>Remoto</option>
-            <option>Híbrido</option>
-            <option>Presencial</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="split">
-        <div class="field">
-          <label for="experiencia">Experiencia</label>
-          <select id="experiencia">
-            <option>Junior</option>
-            <option>Semi-senior</option>
-            <option>Senior</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="ciudad">Ciudad</label>
-          <input id="ciudad" placeholder="Ej: Santiago" />
-        </div>
-      </div>
-
-      <hr>
-
-      <h2>Habilidades (para adaptar vacantes)</h2>
-      <p class="meta">Selecciona tus habilidades principales. Esto impacta directamente las recomendaciones.</p>
-
-      <div class="skill-grid">
-        <label class="chk"><input type="checkbox" value="excel"> Excel</label>
-        <label class="chk"><input type="checkbox" value="crm"> CRM</label>
-        <label class="chk"><input type="checkbox" value="marketing"> Marketing Digital</label>
-        <label class="chk"><input type="checkbox" value="rrhh"> RR.HH.</label>
-        <label class="chk"><input type="checkbox" value="data"> Análisis de Datos</label>
-        <label class="chk"><input type="checkbox" value="python"> Python</label>
-        <label class="chk"><input type="checkbox" value="sql"> SQL</label>
-        <label class="chk"><input type="checkbox" value="atencion"> Atención al Cliente</label>
-        <label class="chk"><input type="checkbox" value="gestion"> Gestión / Administración</label>
-        <label class="chk"><input type="checkbox" value="comunicacion"> Comunicación</label>
-      </div>
-
-      <hr>
-
-      <h2>Modo Mamá / Cuidadora (opcional)</h2>
-      <div class="card" style="background:#f8fafc; border-style:dashed;">
-        <div style="display:flex; gap:12px; align-items:flex-start;">
-          <input id="careMode" type="checkbox" style="margin-top:4px;" />
-          <div>
-            <h3 style="margin:0 0 6px;">Priorizar empleos compatibles con cuidados</h3>
-            <p style="margin:0;">
-              Aumenta la prioridad de vacantes <b>remotas/híbridas</b> y con <b>flexibilidad</b>.
-            </p>
+        <div class="split">
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" placeholder="Ej: Daniela Pérez" />
           </div>
+          <div class="field">
+            <label for="correo">Correo</label>
+            <input id="correo" placeholder="Ej: daniela@mail.com" />
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="field">
+            <label for="ciudad">Ciudad</label>
+            <input id="ciudad" placeholder="Ej: Santiago" />
+          </div>
+          <div class="field">
+            <label for="telefono">Teléfono (opcional)</label>
+            <input id="telefono" placeholder="Ej: +56 9 1234 5678" />
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="card" style="background:#f8fafc; border-style:dashed;">
+          <h3 style="margin:0 0 6px;">¿Qué pasa cuando guardas?</h3>
+          <p style="margin:0;">
+            Se habilita el <b>Paso 2</b> para elegir si usarás FemJob como <b>Persona Natural</b> o <b>Empresa</b>.
+          </p>
+        </div>
+      </div>
+
+      <!-- =========================
+           PASO 2: TIPO DE CUENTA
+      ========================== -->
+      <div id="step2" style="display:none; margin-top:12px;">
+        <h2>Paso 2: Tipo de cuenta</h2>
+        <p>Selecciona cómo usarás la plataforma. Puedes cambiarlo después.</p>
+
+        <div class="split">
+          <div class="field">
+            <label for="accountType">Cuenta</label>
+            <select id="accountType">
+              <option value="persona">Persona Natural</option>
+              <option value="empresa">Empresa</option>
+            </select>
+          </div>
+
+          <div class="field" id="personaTypeField">
+            <label for="personaType">Tipo de persona</label>
+            <select id="personaType">
+              <option value="candidata">Candidata (busca empleo)</option>
+              <option value="egresada">Egresada / primer empleo</option>
+              <option value="reincorporacion">Reincorporación laboral</option>
+              <option value="cambio">Cambio de trabajo</option>
+            </select>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- PERSONA -->
+        <div id="personaSection">
+          <h2>Preferencias laborales (Persona)</h2>
+
+          <div class="split">
+            <div class="field">
+              <label for="area">Área</label>
+              <select id="area">
+                <option>Marketing</option>
+                <option>TI / Datos</option>
+                <option>RR.HH.</option>
+                <option>Administración</option>
+                <option>Servicios</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="modalidad">Modalidad preferida</label>
+              <select id="modalidad">
+                <option>Remoto</option>
+                <option>Híbrido</option>
+                <option>Presencial</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="field">
+              <label for="experiencia">Experiencia</label>
+              <select id="experiencia">
+                <option>Junior</option>
+                <option>Semi-senior</option>
+                <option>Senior</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="careMode">Modo Mamá / Cuidadora</label>
+              <label style="display:flex; gap:10px; align-items:center; margin-top:6px;">
+                <input id="careMode" type="checkbox" />
+                Priorizar empleos compatibles con cuidados
+              </label>
+            </div>
+          </div>
+
+          <hr>
+
+          <h2>Habilidades (opcional)</h2>
+          <p class="meta">Esto ayuda a adaptar las recomendaciones (MVP).</p>
+
+          <div class="skill-grid">
+            <label class="chk"><input type="checkbox" value="excel"> Excel</label>
+            <label class="chk"><input type="checkbox" value="crm"> CRM</label>
+            <label class="chk"><input type="checkbox" value="marketing"> Marketing Digital</label>
+            <label class="chk"><input type="checkbox" value="rrhh"> RR.HH.</label>
+            <label class="chk"><input type="checkbox" value="data"> Análisis de Datos</label>
+            <label class="chk"><input type="checkbox" value="python"> Python</label>
+            <label class="chk"><input type="checkbox" value="sql"> SQL</label>
+            <label class="chk"><input type="checkbox" value="atencion"> Atención al Cliente</label>
+            <label class="chk"><input type="checkbox" value="gestion"> Gestión / Administración</label>
+            <label class="chk"><input type="checkbox" value="comunicacion"> Comunicación</label>
+          </div>
+        </div>
+
+        <!-- EMPRESA -->
+        <div id="empresaSection" style="display:none;">
+          <h2>Datos de empresa</h2>
+
+          <div class="split">
+            <div class="field">
+              <label for="empresaNombre">Nombre empresa</label>
+              <input id="empresaNombre" placeholder="Ej: Empresa Naranja SpA" />
+            </div>
+            <div class="field">
+              <label for="empresaRubro">Rubro</label>
+              <select id="empresaRubro">
+                <option>Servicios</option>
+                <option>Tecnología</option>
+                <option>Retail</option>
+                <option>Salud</option>
+                <option>Educación</option>
+                <option>Otro</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="field">
+              <label for="empresaEmail">Correo corporativo</label>
+              <input id="empresaEmail" placeholder="Ej: rrhh@empresa.cl" />
+            </div>
+            <div class="field">
+              <label for="empresaUbicacion">Ubicación</label>
+              <input id="empresaUbicacion" placeholder="Ej: Santiago" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="empresaDesc">Descripción breve</label>
+            <input id="empresaDesc" placeholder="Ej: Empresa enfocada en innovación y empleabilidad." />
+          </div>
+
+          <hr>
+
+          <h2>Funciones (demo)</h2>
+          <div class="split">
+            <div class="card" style="background:#f8fafc;">
+              <h3 style="margin:0 0 6px;">Publicar vacante</h3>
+              <p style="margin:0 0 10px;">Simula la creación de una oferta.</p>
+              <button class="btn primary" type="button" onclick="alert('Publicación (demo)')">Publicar</button>
+            </div>
+            <div class="card" style="background:#f8fafc;">
+              <h3 style="margin:0 0 6px;">Ver postulaciones</h3>
+              <p style="margin:0 0 10px;">Simula revisión de postulantes.</p>
+              <button class="btn secondary" type="button" onclick="alert('Postulaciones (demo)')">Ver</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+          <button class="btn primary" type="button" onclick="saveAll()">Guardar configuración</button>
         </div>
       </div>
 
     </section>
   </div>
 
-  <div class="footer">FemJob • Perfil (MVP)</div>
+  <div class="footer">FemJob • Perfil (Onboarding MVP)</div>
 </main>
 
 <script>
-  const KEY_PROFILE = "femjob_profile_mvp_v1";
+  const KEY = "femjob_profile_onboarding_v1";
+
+  const $ = (id) => document.getElementById(id);
 
   function getSkills(){
     return Array.from(document.querySelectorAll('.skill-grid input[type="checkbox"]:checked'))
       .map(x => x.value);
   }
-
   function setSkills(arr){
     const set = new Set(arr || []);
-    document.querySelectorAll('.skill-grid input[type="checkbox"]').forEach(cb => {
-      cb.checked = set.has(cb.value);
-    });
+    document.querySelectorAll('.skill-grid input[type="checkbox"]').forEach(cb => cb.checked = set.has(cb.value));
+  }
+
+  function defaultProfile(){
+    return {
+      onboardingComplete: false,
+      nombre: "",
+      correo: "",
+      ciudad: "Santiago",
+      telefono: "",
+      accountType: "persona",
+      personaType: "candidata",
+      area: "Marketing",
+      modalidad: "Remoto",
+      experiencia: "Junior",
+      careMode: false,
+      skills: [],
+      empresaNombre: "",
+      empresaRubro: "Servicios",
+      empresaEmail: "",
+      empresaUbicacion: "Santiago",
+      empresaDesc: ""
+    };
   }
 
   function loadProfile(){
-    const raw = localStorage.getItem(KEY_PROFILE);
-    const data = raw ? JSON.parse(raw) : {};
+    const raw = localStorage.getItem(KEY);
+    const data = raw ? JSON.parse(raw) : defaultProfile();
 
-    document.getElementById("nombre").value = data.nombre || "";
-    document.getElementById("correo").value = data.correo || "";
-    document.getElementById("area").value = data.area || "Marketing";
-    document.getElementById("modalidad").value = data.modalidad || "Remoto";
-    document.getElementById("experiencia").value = data.experiencia || "Junior";
-    document.getElementById("ciudad").value = data.ciudad || "Santiago";
+    $("nombre").value = data.nombre || "";
+    $("correo").value = data.correo || "";
+    $("ciudad").value = data.ciudad || "Santiago";
+    $("telefono").value = data.telefono || "";
 
+    $("accountType").value = data.accountType || "persona";
+    $("personaType").value = data.personaType || "candidata";
+
+    $("area").value = data.area || "Marketing";
+    $("modalidad").value = data.modalidad || "Remoto";
+    $("experiencia").value = data.experiencia || "Junior";
+    $("careMode").checked = !!data.careMode;
     setSkills(data.skills || []);
-    document.getElementById("careMode").checked = !!data.careMode;
+
+    $("empresaNombre").value = data.empresaNombre || "";
+    $("empresaRubro").value = data.empresaRubro || "Servicios";
+    $("empresaEmail").value = data.empresaEmail || "";
+    $("empresaUbicacion").value = data.empresaUbicacion || "Santiago";
+    $("empresaDesc").value = data.empresaDesc || "";
+
+    // UI según onboarding
+    if(data.onboardingComplete){
+      $("step2").style.display = "block";
+      $("chipStep").style.display = "inline-flex";
+      $("chipStep").textContent = "Perfil creado ✅";
+      $("titleH1").textContent = "Mi Perfil";
+      $("subtitleP").textContent = "Puedes modificar tu tipo de cuenta y preferencias. Se guarda localmente.";
+    } else {
+      $("step2").style.display = "none";
+      $("chipStep").style.display = "none";
+      $("titleH1").textContent = "Crear perfil";
+      $("subtitleP").textContent = "Para usar FemJob, primero debes crear tu perfil. Luego podrás elegir si eres Persona Natural o Empresa.";
+    }
+
+    setAccountUI();
   }
 
-  function saveProfile(){
-    const data = {
-      nombre: document.getElementById("nombre").value.trim(),
-      correo: document.getElementById("correo").value.trim(),
-      area: document.getElementById("area").value,
-      modalidad: document.getElementById("modalidad").value,
-      experiencia: document.getElementById("experiencia").value,
-      ciudad: document.getElementById("ciudad").value.trim() || "Santiago",
-      skills: getSkills(),
-      careMode: document.getElementById("careMode").checked
-    };
-    localStorage.setItem(KEY_PROFILE, JSON.stringify(data));
+  function setAccountUI(){
+    const type = $("accountType").value;
 
-    const msg = document.getElementById("savedMsg");
-    msg.style.display = "inline-flex";
-    msg.textContent = "Perfil guardado";
-    setTimeout(() => msg.style.display = "none", 1800);
+    const isPersona = type === "persona";
+    $("personaTypeField").style.display = isPersona ? "block" : "none";
+    $("personaSection").style.display = isPersona ? "block" : "none";
+    $("empresaSection").style.display = isPersona ? "none" : "block";
   }
 
-  function resetProfile(){
-    localStorage.removeItem(KEY_PROFILE);
+  // PASO 1: guardar básico y desbloquear paso 2
+  function saveBasic(){
+    const nombre = $("nombre").value.trim();
+    const correo = $("correo").value.trim();
+    const ciudad = $("ciudad").value.trim();
+
+    if(!nombre || !correo || !ciudad){
+      alert("Completa Nombre, Correo y Ciudad para continuar.");
+      return;
+    }
+
+    const raw = localStorage.getItem(KEY);
+    const data = raw ? JSON.parse(raw) : defaultProfile();
+
+    data.nombre = nombre;
+    data.correo = correo;
+    data.ciudad = ciudad;
+    data.telefono = $("telefono").value.trim();
+
+    data.onboardingComplete = true;
+
+    localStorage.setItem(KEY, JSON.stringify(data));
     loadProfile();
-    alert("Perfil restablecido (demo).");
+    $("step2").scrollIntoView({behavior:"smooth", block:"start"});
+  }
+
+  // PASO 2: guardar todo
+  function saveAll(){
+    const raw = localStorage.getItem(KEY);
+    const data = raw ? JSON.parse(raw) : defaultProfile();
+
+    // si alguien intenta guardar sin completar paso 1
+    if(!data.onboardingComplete){
+      alert("Primero crea tu perfil en el Paso 1.");
+      return;
+    }
+
+    data.accountType = $("accountType").value;
+
+    if(data.accountType === "persona"){
+      data.personaType = $("personaType").value;
+      data.area = $("area").value;
+      data.modalidad = $("modalidad").value;
+      data.experiencia = $("experiencia").value;
+      data.careMode = $("careMode").checked;
+      data.skills = getSkills();
+    } else {
+      data.empresaNombre = $("empresaNombre").value.trim();
+      data.empresaRubro = $("empresaRubro").value;
+      data.empresaEmail = $("empresaEmail").value.trim();
+      data.empresaUbicacion = $("empresaUbicacion").value.trim();
+      data.empresaDesc = $("empresaDesc").value.trim();
+    }
+
+    localStorage.setItem(KEY, JSON.stringify(data));
+    alert("Configuración guardada (demo).");
+  }
+
+  function resetAll(){
+    localStorage.removeItem(KEY);
+    loadProfile();
+    alert("Perfil borrado (demo).");
   }
 
   function goRecommendations(){
-    saveProfile();
+    const raw = localStorage.getItem(KEY);
+    const data = raw ? JSON.parse(raw) : null;
+    if(!data || !data.onboardingComplete){
+      alert("Primero debes crear tu perfil (Paso 1).");
+      return;
+    }
     location.href = "recomendaciones.html";
   }
+
+  $("accountType").addEventListener("change", setAccountUI);
 
   window.addEventListener("load", loadProfile);
 </script>
