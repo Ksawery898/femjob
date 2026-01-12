@@ -538,3 +538,18 @@ input:focus, select:focus{
   font-size:12px;
   margin-bottom:10px;
 }
+
+/* Guardadas: mejora layout en móvil */
+@media (max-width: 600px){
+  .job{
+    flex-direction: column;
+  }
+  .job > div:last-child{
+    align-items: stretch !important;
+    width: 100%;
+    min-width: 0 !important;
+  }
+  .job > div:last-child .btn{
+    width: 100%;
+  }
+}
